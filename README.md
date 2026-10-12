@@ -19,7 +19,8 @@ Node 22+ (`.node-version`).
 
 | Path | What |
 |---|---|
-| `src/pages/` | Routes |
+| `src/pages/` | Routes on the live site |
+| `src/preview-pages/` | Routes on preview links only, never on the live site: About (until approved) and the `/dev` test pages |
 | `src/styles/tokens.css` | Design tokens (light + dark) |
 | `src/content/lessons/` | Lessons as Markdown (≤ 500 words, text only; build fails otherwise). `draft: true` shows on preview URLs only |
 | `src/data/` | Work history (About timeline) |
@@ -36,14 +37,14 @@ Node 22+ (`.node-version`).
 ## Progress
 
 - [x] S01 · setup · astro-project (Lighthouse 100/100/100/100 on the placeholder)
-- [x] S02 · foundation · tokens-and-base (gate page: `/dev/base`)
-- [x] S03 · foundation · layout-shell (gate page: `/dev/shell`)
-- [x] S04 · component · nav-bar (gate page: `/dev/nav`)
-- [x] S05 · component · footer (gate page: `/dev/footer`)
-- [x] S06 · component · small-parts (gate page: `/dev/parts`)
+- [x] S02 · foundation · tokens-and-base (preview-only gate page: `/dev/base`)
+- [x] S03 · foundation · layout-shell (preview-only gate page: `/dev/shell`)
+- [x] S04 · component · nav-bar (preview-only gate page: `/dev/nav`)
+- [x] S05 · component · footer (preview-only gate page: `/dev/footer`)
+- [x] S06 · component · small-parts (preview-only gate page: `/dev/parts`)
 - [x] S07 · page · home
 - [x] S08 · content · lessons-collection (8 placeholder lessons are drafts)
 - [x] S09 · page · lesson
 - [x] S10 · page · product-lessons
-- [x] S11 · page · about (built at /about, not linked, noindex)
+- [x] S11 · page · about (preview links only until approved)
 - [ ] S12–S13: see `docs/STORIES.md`

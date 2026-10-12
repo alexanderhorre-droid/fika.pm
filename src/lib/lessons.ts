@@ -3,11 +3,12 @@
 //   - a lesson body is text only: no images
 // Drafts appear on preview URLs (and locally) but never on the main branch, which becomes fika.pm.
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { isPreviewBuild } from './env.mjs';
 
 export type Lesson = CollectionEntry<'lessons'>;
 
 export const MAX_WORDS = 500;
-export const showDrafts = process.env.CF_PAGES_BRANCH !== 'main';
+export const showDrafts = isPreviewBuild;
 
 // ---------- Topics: defined by the lessons themselves ----------
 // Whatever a lesson lists under `topics:` becomes a topic. "Roadmap", "roadmap" and "ROADMAP" are one topic.
