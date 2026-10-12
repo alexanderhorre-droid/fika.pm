@@ -142,3 +142,12 @@ button { font: inherit; color: inherit; }
   font-size: var(--text-small);
 }
 .skip-link:focus { top: var(--space-2); }
+
+/* ---------- Coming soon (shared by nav and footer) ---------- */
+.nav-soon { display: inline-flex; align-items: center; gap: 8px; cursor: default; opacity: .85; white-space: nowrap; }
+.soon-tag {
+  display: inline-flex; align-items: center; height: 20px; padding: 0 7px;
+  border: 1px solid currentColor; border-radius: var(--radius-pill);
+  font: 500 0.625rem/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; opacity: .75;
+}
+

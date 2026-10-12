@@ -39,4 +39,5 @@ Node 22+ (`.node-version`).
 - [x] S02 · foundation · tokens-and-base (gate page: `/dev/base`)
 - [x] S03 · foundation · layout-shell (gate page: `/dev/shell`)
 - [x] S04 · component · nav-bar (gate page: `/dev/nav`)
-- [ ] S05–S13: see `docs/STORIES.md`
+- [x] S05 · component · footer (gate page: `/dev/footer`)
+- [ ] S06–S13: see `docs/STORIES.md`

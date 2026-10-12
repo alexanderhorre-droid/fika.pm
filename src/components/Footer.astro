@@ -1,0 +1,85 @@
+---
+// S05 footer: site nav · contact (copy email, LinkedIn) · author card · legal row.
+import '../styles/footer.css';
+import type { NavPage } from '../types';
+
+interface Props { current?: NavPage }
+const { current = 'none' } = Astro.props;
+
+const email = 'alex@fika.pm';
+const linkedin = 'https://www.linkedin.com/in/alexander-horr%C3%A9-9b959a6/';
+const links = [
+  { id: 'home', label: 'Home', href: '/' },
+  { id: 'lessons', label: 'Product Lessons', href: '/lessons' },
+] as const;
+---
+<footer class="site-footer">
+  <div class="footer-inner">
+    <nav class="footer-col footer-nav" aria-labelledby="footer-brand">
+      <h2 id="footer-brand"><a class="footer-home" href="/"><span class="brand-inline">fika.pm</span></a></h2>
+      <ul>
+        {links.map((l) => <li><a href={l.href} aria-current={current === l.id ? 'page' : undefined}>{l.label}</a></li>)}
+        <li><span class="nav-soon" aria-disabled="true">About me <span class="soon-tag">Coming soon</span></span></li>
+        <li><span class="nav-soon" aria-disabled="true">Work <span class="soon-tag">Coming soon</span></span></li>
+      </ul>
+    </nav>
+
+    <section class="footer-col" aria-labelledby="footer-contact">
+      <h2 id="footer-contact">Contact</h2>
+      <button class="copy-email" type="button" data-email={email}><span class="copy-email-label">Copy my email: {email}</span></button>
+      <span class="visually-hidden copy-email-live" aria-live="polite"></span>
+      <p class="footer-social">
+        <a href={linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <span class="arrow" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </p>
+    </section>
+
+    <aside class="footer-col author-card" aria-label="About the author">
+      <span class="author-avatar" aria-hidden="true">
+        <img class="av-forward" src="/images/avatar-forward.webp" width="240" height="240" alt="" loading="lazy" decoding="async" />
+        <img class="av-left" src="/images/avatar-left.webp" width="240" height="240" alt="" loading="lazy" decoding="async" />
+        <img class="av-right" src="/images/avatar-right.webp" width="240" height="240" alt="" loading="lazy" decoding="async" />
+      </span>
+      <div>
+        <p class="author-name">Alexander Horré</p>
+        <p class="author-role">Author of <span class="brand-inline">fika.pm</span><br />Senior product manager</p>
+      </div>
+      <p class="author-bio">After 15 years as a PM, I’m sharing how I think about the craft. Each lesson pairs hands-on experience with the industry’s evolving thinking on strategic and tactical product management.</p>
+    </aside>
+  </div>
+
+  <div class="footer-legal">
+    <div class="footer-legal-inner">
+      <p>© 2026 Alexander Horré</p>
+      <p>Stockholm, Sweden · San Francisco, California</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Copy my email: clipboard API, textarea fallback, announced politely; "Email copied ✓" for 2s.
+  document.querySelectorAll<HTMLButtonElement>('.copy-email').forEach((btn) => {
+    const label = btn.querySelector('.copy-email-label')!;
+    const live = btn.nextElementSibling as HTMLElement;
+    const email = btn.dataset.email!;
+    const base = label.textContent;
+    let timer: number | undefined;
+    const done = (ok: boolean) => {
+      label.textContent = ok ? 'Email copied ✓' : email; // on failure, show the address so it can be selected
+      btn.classList.toggle('is-done', ok);
+      live.textContent = ok ? 'Email address copied' : `Copy the email address: ${email}`;
+      clearTimeout(timer);
+      timer = window.setTimeout(() => { label.textContent = base; btn.classList.remove('is-done'); }, ok ? 2000 : 6000);
+    };
+    const legacy = () => {
+      const ta = document.createElement('textarea');
+      ta.value = email; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, email.length);
+      let ok = false; try { ok = document.execCommand('copy'); } catch {}
+      ta.remove(); return ok;
+    };
+    btn.addEventListener('click', () => {
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(email).then(() => done(true), () => done(legacy()));
+      else done(legacy());
+    });
+  });
+</script>

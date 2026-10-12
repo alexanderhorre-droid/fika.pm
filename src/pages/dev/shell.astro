@@ -1,5 +1,5 @@
 ---
-// S03 gate page: the empty shell with the nav bar and a stand-in footer, showing the content edge. Not linked; noindex.
+// S03 gate page: the empty shell with the nav bar and footer, showing the content edge. Not linked; noindex.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="Layout shell · fika.pm" noindex>
@@ -19,9 +19,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     <p>This block fills the whole content edge.</p>
   </section>
 
-  <footer slot="footer" class="wide stand-in stand-in--footer">
-    <span class="label">Footer slot · footer arrives in S05</span>
-  </footer>
 </BaseLayout>
 
 <style>
