@@ -5,7 +5,7 @@ Approved wording, page by page. Use it exactly; headings never end in a full sto
 ## Global
 
 - **Nav:** Home · Product Lessons · About me (Coming soon) · Work (Coming soon) · dark mode switch ("Dark mode" row in the phone menu). No Subscribe yet.
-- **Browser tab titles:** "fika.pm · Bite‑sized product lessons for PMs" · "Product Lessons · fika.pm" · "<Lesson title> · fika.pm" · "About · fika.pm".
+- **Browser tab titles:** "fika.pm · Bite‑sized product lessons for PMs" · "Product Lessons · fika.pm" · "<Lesson title> · fika.pm" · "About · fika.pm" · "Page not found · fika.pm".
 
 ## Home
 
@@ -30,7 +30,15 @@ Approved wording, page by page. Use it exactly; headings never end in a full sto
 - **Sign-off:** Until the next fika… / Share this lesson with a colleague or friend.
 - **Share button:** Copy link to this lesson → Link copied ✓ (touch devices: Share this lesson)
 
-## About me (built, not linked yet)
+## Page not found (404)
+
+- **Label:** 404 · Page not found
+- **h1:** Nothing brewing here
+- **Deck:** This page doesn’t exist, or it has moved. Try the lessons instead.
+- **Links:** View all lessons → · Go to the homepage
+- **Browser tab title:** Page not found · fika.pm
+
+## About me (preview links only, to be redone)
 
 - **h1:** Hi, I’m Alex
 - **Deck:** I’ve been working in tech as a product manager for 15 years. Building in Stockholm, Sweden via San Francisco, California.
