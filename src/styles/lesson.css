@@ -4,7 +4,7 @@
 .hero-deck {
   margin-top: var(--deck-gap); max-width: 34ch;
   font: 400 max(20px, calc(var(--hero-size-sm) * var(--deck-scale) * 0.0125))/1.25 var(--font-serif);
-  color: var(--color-deck); text-wrap: pretty;
+  color: var(--color-text); text-wrap: pretty; /* Graphite, same as the standfirst (was Iron) */
 }
 @media (min-width: 64rem) {
   .hero-deck { font-size: max(20px, min(calc(var(--hero-size-n) * var(--deck-scale) * 0.01px), calc(var(--hero-size-n) * var(--deck-scale) * 0.000783vw))); }

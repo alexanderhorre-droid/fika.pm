@@ -9,7 +9,7 @@
 - **Home headline always two lines** on every screen; its size follows its column.
 - **Fonts self-hosted** (same Google Fonts files) with size-matched fallbacks: no layout shift.
 - **Real routes** (`/`, `/lessons`, `/lessons/<slug>`), a **404 page**, and **preview-only pages** (About, drafts, test pages never reach the live site).
-- **Footer bio** rewritten. **Dates** read "7 Oct 2026". **Receipts** show the site's host only.
+- **Deck colour** is Graphite (like the standfirst), not Iron. **Footer bio** rewritten. **Dates** read "7 Oct 2026". **Receipts** show the site's host only.
 - **Share button** copies the link of the site it's on. **Filter** keeps its selection in the address.
 - **Accessibility:** one header landmark, phone menu focus order fixed, 44px tap areas everywhere.
 - **Search and sharing:** sharing image and tags, sitemap, RSS, robots.txt. **Domains:** fika.pm, with www and http forwarding to https://fika.pm.
@@ -38,7 +38,7 @@
 | Background | Oat milk / Night | `#f5efe6` | `#15171a` | `--color-bg` | Page background |
 | Text | Graphite / Fog | `#1b1e22` | `#f2f3f4` | `--color-text` | Headings, body |
 | Muted text | Pewter / Silver | `#555c64` | `#a7adb4` | `--color-text-muted` | Dates, captions, secondary lines |
-| Deck & role line | Iron | `#43494f` | `#bdc2c8` | `--color-deck` | Supporting line under an h1; author role line; timeline dates |
+| Role line | Iron | `#43494f` | `#bdc2c8` | `--color-deck` | Author role line; timeline dates (the deck under an h1 is Graphite `--color-text`, like the standfirst) |
 | Border | Mist / Shadow | `#dde0e3` | `#2e3238` | `--color-border` | Hairlines only |
 | Control border | Graphite / Fog | `#1b1e22` | `#f2f3f4` | `--color-border-strong` | Pill outlines, focus rings |
 | Surface | White / Coal | `#ffffff` | `#202327` | `--color-surface` | Cards (author card, sign-off) |
@@ -79,7 +79,7 @@ Google Fonts files, downloaded at build time and served from fika.pm itself (Ast
 - **Scale:** h2 `clamp(1.5rem, 1.25rem + 1.25vw, 2rem)`; body 1.125rem / 1.6–1.7; small 0.9375rem; label 0.75rem uppercase +0.08em.
 - **Hero h1:** desktop size `max(42px, min(99px, 7.83vw))` (`--hero-size-n: 99`), 42px below 64rem, line-height 1.05, −0.01em.
 - **Home h1:** always two lines, "Bite‑sized product / lessons for PMs", on every screen. Its size follows the headline column so the first line fills it, capped at 99px: about 31px on a 390px phone, 63px on a tablet, 74px at 1024px, 99px on desktop.
-- **Deck:** Instrument Serif in Iron, 50% of the h1 size (min 20px), 12px below the h1 (`--deck-scale: 50`, `--deck-gap: 12px`).
+- **Deck:** Instrument Serif in Graphite (`--color-text`, same as the standfirst), 50% of the h1 size (min 20px), 12px below the h1 (`--deck-scale: 50`, `--deck-gap: 12px`).
 
 ## Spacing, layout, radius
 
@@ -162,7 +162,7 @@ Pastel sprinkles drift slowly upward behind the top section of **every page**: t
 ## Lesson page
 
 1. **← Back to Product Lessons**
-2. h1 (bold) + deck in Iron.
+2. h1 (bold) + deck in Graphite.
 3. **Meta:** date · topic tag pill(s). Tags link to Product Lessons pre-filtered.
 4. **Body:** hairline above; h2 + paragraphs at reading width; 18px / 1.7. **500 words or fewer, text only, no images.** Ends with a ■ tombstone after the last word.
 5. **The Take Away:** one inverted card (Espresso in light, Oat milk in dark), no section heading. Mono label "THE TAKE AWAY", serif title, one or two sentences.

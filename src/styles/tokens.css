@@ -5,7 +5,7 @@
   --color-bg: #f5efe6;              /* Oat milk */
   --color-text: #1b1e22;            /* Graphite */
   --color-text-muted: #555c64;      /* Pewter */
-  --color-deck: #43494f;            /* Iron: deck, role line, timeline dates */
+  --color-deck: #43494f;            /* Iron: author role line, timeline dates (decks use --color-text) */
   --color-border: #dde0e3;          /* Mist: hairlines only */
   --color-border-strong: #1b1e22;   /* pill outlines, focus rings */
   --color-surface: #ffffff;         /* cards */
