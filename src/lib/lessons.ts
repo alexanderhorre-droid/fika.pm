@@ -3,19 +3,33 @@
 //   - a lesson body is text only: no images
 // Drafts appear on preview URLs (and locally) but never on the main branch, which becomes fika.pm.
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { TOPICS } from '../content.config';
 
 export type Lesson = CollectionEntry<'lessons'>;
-export type Topic = (typeof TOPICS)[number];
-export { TOPICS };
 
 export const MAX_WORDS = 500;
 export const showDrafts = process.env.CF_PAGES_BRANCH !== 'main';
 
-export const TOPIC_LABELS: Record<Topic, string> = {
-  roadmap: 'Roadmap', framework: 'Framework', retention: 'Retention',
-  onboarding: 'Onboarding', payments: 'Payments', claude: 'Claude',
-};
+// ---------- Topics: defined by the lessons themselves ----------
+// Whatever a lesson lists under `topics:` becomes a topic. "Roadmap", "roadmap" and "ROADMAP" are one topic.
+export interface Topic { slug: string; label: string; count: number }
+
+/** URL form, used in ?topic= links: "Product discovery" → "product-discovery". */
+export const topicSlug = (t: string) =>
+  t.trim().toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+/** Display form: first letter capitalised, the rest as written ("roadmap" → "Roadmap", "AI evals" stays). */
+export const topicLabel = (t: string) => { const s = t.trim(); return s.charAt(0).toUpperCase() + s.slice(1); };
+
+/** Every topic used by the given lessons, A–Z, with how many lessons use it. */
+export function getTopics(lessons: Lesson[]): Topic[] {
+  const map = new Map<string, Topic>();
+  for (const l of lessons) for (const t of l.data.topics) {
+    const slug = topicSlug(t);
+    const hit = map.get(slug);
+    if (hit) hit.count++; else map.set(slug, { slug, label: topicLabel(t), count: 1 });
+  }
+  return [...map.values()].sort((a, b) => a.label.localeCompare(b.label, 'en'));
+}
 
 /** Words a reader actually reads: comments, code fences and Markdown syntax removed. */
 export function countWords(markdown: string): number {

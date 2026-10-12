@@ -19,7 +19,7 @@ Approved wording, page by page. Use it exactly; headings never end in a full sto
 
 - **h1:** Bite‑sized Product Lessons
 - **Section:** All lessons (follows the filter: "Roadmap lessons", "Roadmap and Framework lessons", "Lessons on 3 topics")
-- **Filter button:** Filter by topic · panel: All, Roadmap, Framework, Retention, Onboarding, Payments, Claude · Close
+- **Filter button:** Filter by topic · panel: All, then one chip per topic used in the lessons (from each lesson's `topics:`) · Close
 - **Empty state:** No lessons on Payments yet.
 
 ## Lesson

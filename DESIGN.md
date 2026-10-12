@@ -111,7 +111,7 @@ Secondary pages (Product Lessons, lesson, About) hide the curved FIKA.PM label. 
 - h1 **"Bite‑sized Product Lessons"** (bold). No deck.
 - Section row: **"All lessons"** (highlighted) on the left, **Filter by topic** on the right.
 - **The heading follows the filter:** All lessons → "Roadmap lessons" → "Roadmap and Framework lessons" → "Lessons on 3 topics".
-- **Filter by topic:** a solid Graphite button that expands like the nav menu into a panel of chips (All, Roadmap, Framework, Retention, Onboarding, Payments, Claude). Multi-select; selected chips invert and show ✓; a count badge appears on the button; **Close** sits on the right when open. No result count. Empty state: "No lessons on … yet."
+- **Filter by topic:** a solid Graphite button that expands like the nav menu into a panel of chips: All, then one chip per topic used in the lesson files (each lesson's `topics:` frontmatter), A–Z. Multi-select; selected chips invert and show ✓; a count badge appears on the button; **Close** sits on the right when open. No result count. Empty state: "No lessons on … yet."
 - List: all lessons, full width, hairlines between; titles at reading width.
 
 ## Lesson page

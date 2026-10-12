@@ -1,11 +1,11 @@
 ---
 import '../styles/lesson-list.css';
-import { formatDate, type Lesson } from '../lib/lessons';
+import { formatDate, topicSlug, type Lesson } from '../lib/lessons';
 interface Props { lesson: Lesson }
 const { lesson } = Astro.props;
 const { title, date, topics } = lesson.data;
 ---
-<article class="post" data-topics={topics.join(' ')}>
+<article class="post" data-topics={topics.map(topicSlug).join(' ')}>
   <p class="meta"><time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time></p>
   <h3><a href={`/lessons/${lesson.id}`}>{title}</a></h3>
 </article>

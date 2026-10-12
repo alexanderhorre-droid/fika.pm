@@ -3,7 +3,7 @@
 title: "Why roadmaps lie"
 deck: "A roadmap is a forecast dressed up as a promise. Here’s how to keep it honest, and still useful."
 date: 2026-10-07
-topics: [roadmap]            # one or more of: roadmap, framework, retention, onboarding, payments, claude
+topics: [roadmap]            # one or more, free-form; each becomes a topic tag and a filter chip on Product Lessons
 takeaway:
   title: "A roadmap is a forecast, not a promise"
   text: "Dates signal a certainty you don’t have yet. Treat everything beyond what you’re building now as a bet, not a commitment."

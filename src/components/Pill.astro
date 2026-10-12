@@ -5,16 +5,18 @@
 //   kind="soon":  Coming soon tag after a disabled item
 interface Props {
   kind: 'topic' | 'chip' | 'soon';
-  topic?: string;      // topic id, e.g. "roadmap" (topic, chip)
+  topic?: string;      // topic as written in a lesson, e.g. "Roadmap" (topic, chip)
   pressed?: boolean;   // chip only
   size?: 'md' | 'lg';  // topic only; lg is the About page size
 }
 const { kind, topic, pressed = false, size = 'md' } = Astro.props;
+import { topicSlug } from '../lib/lessons';
+const slug = topic ? topicSlug(topic) : undefined;
 ---
 {kind === 'topic' && (
-  <a class:list={['topic-tag', { 'topic-tag--lg': size === 'lg' }]} href={`/lessons?topic=${topic}`}><slot /></a>
+  <a class:list={['topic-tag', { 'topic-tag--lg': size === 'lg' }]} href={`/lessons?topic=${slug}`}><slot /></a>
 )}
 {kind === 'chip' && (
-  <button type="button" class="chip" data-tag={topic} aria-pressed={String(pressed)}><slot /></button>
+  <button type="button" class="chip" data-tag={slug} aria-pressed={String(pressed)}><slot /></button>
 )}
 {kind === 'soon' && <span class="soon-tag"><slot>Coming soon</slot></span>}

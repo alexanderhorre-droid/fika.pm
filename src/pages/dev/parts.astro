@@ -5,11 +5,10 @@ import Button from '../../components/Button.astro';
 import Pill from '../../components/Pill.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import Highlight from '../../components/Highlight.astro';
+import { getLessons, getTopics } from '../../lib/lessons';
 
-const topics = [
-  ['roadmap', 'Roadmap'], ['framework', 'Framework'], ['retention', 'Retention'],
-  ['onboarding', 'Onboarding'], ['payments', 'Payments'], ['claude', 'Claude'],
-];
+// Chips come from the topics the lessons use.
+const topics = getTopics(await getLessons());
 ---
 <BaseLayout title="Small parts · fika.pm" noindex>
   <div class="sink">
@@ -41,19 +40,19 @@ const topics = [
       <SectionHeading id="s-pills">Pills</SectionHeading>
       <h3>Topic tags (links)</h3>
       <ul class="topic-list">
-        {topics.slice(0, 3).map(([id, label]) => <li><Pill kind="topic" topic={id}>{label}</Pill></li>)}
+        {topics.slice(0, 3).map((t) => <li><Pill kind="topic" topic={t.label}>{t.label}</Pill></li>)}
       </ul>
       <ul class="topic-list">
-        {topics.slice(0, 3).map(([id, label]) => <li><Pill kind="topic" topic={id} size="lg">{label}</Pill></li>)}
+        {topics.slice(0, 3).map((t) => <li><Pill kind="topic" topic={t.label} size="lg">{t.label}</Pill></li>)}
       </ul>
       <p class="note">Small on lessons, large on the About page. They link to Product Lessons filtered by topic (built in S10).</p>
 
       <h3>Filter chips (toggles)</h3>
       <div class="row chips">
         <Pill kind="chip" pressed>All</Pill>
-        {topics.map(([id, label], i) => <Pill kind="chip" topic={id} pressed={i === 0}>{label}</Pill>)}
+        {topics.map((t, i) => <Pill kind="chip" topic={t.label} pressed={i === 0}>{t.label}</Pill>)}
       </div>
-      <p class="note">Click to toggle. Selected chips invert and show ✓.</p>
+      <p class="note">Built from the topics in the lesson files ({topics.length} right now). Click to toggle. Selected chips invert and show ✓.</p>
 
       <h3>Coming soon tag</h3>
       <p><span class="nav-soon" aria-disabled="true">About me <Pill kind="soon" /></span></p>
