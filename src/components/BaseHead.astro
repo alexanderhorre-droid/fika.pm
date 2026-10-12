@@ -52,11 +52,11 @@ const canonical = new URL(cleanPath, Astro.site);
 <meta name="twitter:card" content="summary_large_image" />
 
 <!-- Only four families: Instrument Serif, Public Sans, IBM Plex Mono, Bungee (self-hosted, see astro.config.mjs).
-     Preload the two that set the first screen. -->
+     Preload the three that set the first screen (serif, sans, and Bungee for the FIKA.PM wordmark). -->
 <Font cssVariable="--font-serif" preload />
 <Font cssVariable="--font-sans" preload />
 <Font cssVariable="--font-mono" />
-<Font cssVariable="--font-wordmark" />
+<Font cssVariable="--font-wordmark" preload />
 
 <!-- Dark mode follows the device; a saved choice from the nav switch overrides it. Runs before paint. -->
 <script is:inline>

@@ -1,7 +1,9 @@
 ---
-// S12: pastel sprinkles drifting up behind the home masthead.
-// Kept faint behind the text, cut out of the portrait, paused off-screen and in background tabs,
-// still (drawn once) with reduced motion. Absolutely positioned, so it never shifts layout.
+// Pastel sprinkles drifting up behind the top of every page.
+// The area is the page's first [data-sprinkles] element (home/About masthead, or the page header).
+// Sprinkles go faint behind [data-sprinkles-clear] elements: the whole box, or with ="lines"
+// only the text lines (for full-width headlines). Cut out of the portrait, paused off-screen and in
+// background tabs, still (drawn once) with reduced motion. Absolutely positioned: never shifts layout.
 ---
 <canvas class="sprinkles" aria-hidden="true"></canvas>
 
@@ -11,13 +13,14 @@
 
 <script>
   const cv = document.querySelector<HTMLCanvasElement>('canvas.sprinkles');
-  const hero = document.querySelector<HTMLElement>('.hero');
-  const copy = document.querySelector<HTMLElement>('.hero-copy');
+  const hero = document.querySelector<HTMLElement>('[data-sprinkles]');
   const ctx = cv?.getContext('2d');
-  if (cv && hero && copy && ctx) {
+  if (cv && hero && ctx) {
     const root = document.documentElement;
     // Values from the approved prototype: drift · 100 sprinkles · 5.5px long · 3.5px thick.
-    const COUNT = 100, LEN = 5.5, THICK = 3.5;
+    // Shorter page headers get proportionally fewer, so every page has the home masthead's density.
+    const LEN = 5.5, THICK = 3.5;
+    const count = () => Math.round(100 * Math.min(1, Math.max(0.35, H / (W * 0.42))));
     const COLOURS = {
       light: ['#f0899f', '#f6cc4a', '#5fcf98', '#9d86f0', '#5fb2f0'],
       dark: ['#f59ab0', '#f8d465', '#74dba8', '#ad99f4', '#78c0f4'],
@@ -35,7 +38,7 @@
     const isDark = () => { const t = root.getAttribute('data-theme'); return t ? t === 'dark' : darkMq.matches; };
 
     const make = () => {
-      parts = Array.from({ length: COUNT }, () => ({ x: rnd() * W, y: rnd() * H, r: rnd() * Math.PI, c: rnd(), ph: rnd() * Math.PI * 2, vr: (rnd() - 0.5) * 0.8, depth: 0.15 + rnd() * 0.6 }));
+      parts = Array.from({ length: count() }, () => ({ x: rnd() * W, y: rnd() * H, r: rnd() * Math.PI, c: rnd(), ph: rnd() * Math.PI * 2, vr: (rnd() - 0.5) * 0.8, depth: 0.15 + rnd() * 0.6 }));
       t0 = performance.now();
     };
 
@@ -50,11 +53,24 @@
       draw(0);
     };
 
+    // Where the text is, in page coordinates, padded so sprinkles stay clear of it.
+    function clearRects() {
+      const out: { x0: number; y0: number; x1: number; y1: number }[] = [];
+      hero!.querySelectorAll<HTMLElement>('[data-sprinkles-clear]').forEach((el) => {
+        const lines = el.dataset.sprinklesClear === 'lines';
+        const pad = lines ? 12 : 24;
+        let rects: DOMRect[];
+        if (lines) { const range = document.createRange(); range.selectNodeContents(el); rects = [...range.getClientRects()]; }
+        else rects = [el.getBoundingClientRect()];
+        for (const r of rects) if (r.width && r.height) out.push({ x0: r.left - pad, y0: r.top + scrollY - pad, x1: r.right + pad, y1: r.bottom + scrollY + pad });
+      });
+      return out;
+    }
+
     function draw(dt: number) {
       const t = (performance.now() - t0) / 1000;
       const cols = COLOURS[isDark() ? 'dark' : 'light'];
-      const r = copy.getBoundingClientRect(), pad = 24;
-      const clear = { x0: r.left - pad, y0: r.top + scrollY - pad, x1: r.right + pad, y1: r.bottom + scrollY + pad };
+      const clears = clearRects();
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
       ctx.lineCap = 'round'; ctx.lineWidth = THICK;
       const k = dt / 16.67;
@@ -66,7 +82,7 @@
           if (p.y < -20) { p.y = H + 20; p.x = rnd() * W; }
         }
         // Faint behind the headline so it stays easy to read.
-        ctx.globalAlpha = p.x > clear.x0 && p.x < clear.x1 && p.y > clear.y0 && p.y < clear.y1 ? 0.2 : 1;
+        ctx.globalAlpha = clears.some((c) => p.x > c.x0 && p.x < c.x1 && p.y > c.y0 && p.y < c.y1) ? 0.2 : 1;
         ctx.strokeStyle = cols[Math.floor(p.c * cols.length)];
         const cx = (Math.cos(p.r) * LEN) / 2, cy = (Math.sin(p.r) * LEN) / 2;
         ctx.beginPath(); ctx.moveTo(p.x - cx, p.y - cy); ctx.lineTo(p.x + cx, p.y + cy); ctx.stroke();

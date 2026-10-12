@@ -43,3 +43,11 @@
   letter-spacing: -0.005em; text-wrap: pretty;
 }
 .standfirst-text .brand-inline { font-size: 0.71em; letter-spacing: 0.02em; }
+
+/* Home headline: always two lines, "Bite‑sized product / lessons for PMs", on every screen.
+   The size follows the headline column (container query units): the first line fills the column,
+   capped at the desktop size. 6.05em is the measured width of "Bite‑sized product" (plus a hair of margin). */
+.hero-copy { container-type: inline-size; }
+.hero-heading--fit { max-width: none; font-size: min(calc(var(--hero-size-n) * 1px), calc(100cqi / 6.05)); }
+@media (min-width: 64rem) { .hero-heading--fit { font-size: min(calc(var(--hero-size-n) * 1px), calc(100cqi / 6.05)); } }
+.hero-heading--fit .line { display: block; white-space: nowrap; }

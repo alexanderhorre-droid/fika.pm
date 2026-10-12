@@ -61,6 +61,7 @@ Google Fonts, downloaded at build time and served from the site itself (Astro's 
 - **Bold serif:** Instrument Serif has no bold, so headings that need weight use `-webkit-text-stroke: ~0.028–0.03em currentColor; paint-order: stroke fill`. Used on: every h1, section titles, lesson h2s, card titles.
 - **Scale:** h2 `clamp(1.5rem, 1.25rem + 1.25vw, 2rem)`; body 1.125rem / 1.6–1.7; small 0.9375rem; label 0.75rem uppercase +0.08em.
 - **Hero h1:** desktop size `max(42px, min(99px, 7.83vw))` (`--hero-size-n: 99`), 42px below 64rem, line-height 1.05, −0.01em.
+- **Home h1 exception:** always two lines, "Bite‑sized product / lessons for PMs", on every screen. Its size follows the headline column (first line fills it), capped at 99px: about 31px on a 390px phone, 63px on a tablet, 74px at 1024px.
 - **Deck:** Instrument Serif in Iron, 50% of the h1 size (min 20px), 12px below the h1 (`--deck-scale: 50`, `--deck-gap: 12px`).
 
 ## Spacing, layout, radius

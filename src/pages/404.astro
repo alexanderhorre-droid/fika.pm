@@ -6,13 +6,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 ---
 <BaseLayout title="Page not found · fika.pm" description="This page doesn’t exist." noindex>
-  <header class="lesson-hero notfound">
-    <p class="label notfound-code">404 · Page not found</p>
+  <header class="lesson-hero notfound" data-sprinkles>
+    <p class="label notfound-code" data-sprinkles-clear="lines">404 · Page not found</p>
     <hgroup>
-      <h1 class="hero-heading">Nothing brewing here</h1>
-      <p class="hero-deck">This page doesn’t exist, or it has moved. Try the lessons instead.</p>
+      <h1 class="hero-heading" data-sprinkles-clear="lines">Nothing brewing here</h1>
+      <p class="hero-deck" data-sprinkles-clear="lines">This page doesn’t exist, or it has moved. Try the lessons instead.</p>
     </hgroup>
-    <div class="notfound-actions">
+    <div class="notfound-actions" data-sprinkles-clear="lines">
       <Button href="/lessons" arrow>View all lessons</Button>
       <a href="/">Go to the homepage</a>
     </div>
