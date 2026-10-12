@@ -1,0 +1,111 @@
+/* fika.pm base styles. Values come from tokens.css; spec in DESIGN.md. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + var(--nav-top) + var(--space-3));
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: 400 var(--text-body)/1.6 var(--font-sans);
+  overflow-wrap: anywhere;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { max-width: 100%; height: auto; }
+
+h1, h2, h3, h4, p, ul, ol, figure, blockquote { margin: 0; }
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/* Instrument Serif has no bold: a hairline stroke gives it weight. */
+.serif-bold,
+h1, h2 {
+  -webkit-text-stroke: var(--serif-bold) currentColor;
+  paint-order: stroke fill;
+}
+
+/* Links: Graphite, underlined; hover thickens the underline. */
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+a:hover { text-decoration-thickness: 2px; }
+
+/* Focus: one ring for everything interactive. */
+:focus-visible {
+  outline: 2px solid var(--color-border-strong);
+  outline-offset: 2px;
+}
+
+button { font: inherit; color: inherit; }
+
+::selection { background: var(--color-text); color: var(--color-bg); }
+
+/* Text roles */
+.text-muted { color: var(--color-text-muted); }
+.text-small { font-size: var(--text-small); }
+.label {
+  font: 500 var(--text-label)/1.3 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.brand-inline { font-family: var(--font-wordmark); font-weight: 400; -webkit-text-stroke: 0; }
+
+/* Solid button: <button> or a link styled as one (stays an <a>). */
+.btn-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: none;
+  min-height: var(--btn-h);
+  padding: 0 var(--btn-pad-x);
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--color-text);
+  color: var(--color-bg);
+  font: 600 1rem/1 var(--font-sans);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--ui-transition) ease, transform 100ms ease;
+}
+.btn-solid:hover { background: var(--color-button-hover); }
+.btn-solid:active { transform: scale(0.96); }
+.btn-solid .arrow { display: inline-block; transition: transform var(--ui-transition) ease; }
+.btn-solid:hover .arrow { transform: translateX(3px); }
+@media (max-width: 39.99rem) {
+  .btn-solid { min-height: 40px; padding: 0 14px; font-size: 0.875rem; }
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Reduced motion: no transitions or animations anywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

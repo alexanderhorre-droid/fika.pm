@@ -1,0 +1,95 @@
+---
+// S02 gate page: tokens, fonts, base styles, link, button, both themes. Not linked; noindex.
+import BaseHead from '../../components/BaseHead.astro';
+
+const swatches = [
+  ['--color-bg', 'Background'], ['--color-text', 'Text'], ['--color-text-muted', 'Muted text'],
+  ['--color-deck', 'Deck & role line'], ['--color-border', 'Border'], ['--color-surface', 'Surface'],
+  ['--color-takeaway', 'Take Away card'], ['--color-receipts', 'Receipts card'],
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title="Base styles · fika.pm" noindex />
+    <style>
+      main { width: min(100% - 2 * var(--gutter), var(--post-w)); margin: 0 auto; padding: var(--space-6) 0 var(--space-7); display: grid; gap: var(--space-5); }
+      section { display: grid; gap: var(--space-2); padding-top: var(--space-3); border-top: 1px solid var(--color-border); }
+      .theme-set { display: flex; gap: var(--space-1); flex-wrap: wrap; }
+      .theme-set button { min-height: 40px; padding: 0 16px; border-radius: var(--radius-pill); border: 1px solid var(--color-border-strong); background: transparent; cursor: pointer; font: 500 0.9375rem/1 var(--font-sans); }
+      .theme-set button[aria-pressed="true"] { background: var(--color-text); color: var(--color-bg); }
+      h1 { font-size: max(42px, min(99px, 7.83vw)); line-height: 1.05; letter-spacing: -0.01em; }
+      .deck { font: 400 max(20px, calc(max(42px, min(99px, 7.83vw)) * 0.5))/1.2 var(--font-serif); color: var(--color-deck); margin-top: var(--deck-gap); }
+      h2 { font-size: var(--text-h2); }
+      .fonts p { margin: 0; }
+      .serif { font: 400 1.75rem/1.2 var(--font-serif); }
+      .serif-i { font: italic 400 1.75rem/1.2 var(--font-serif); }
+      .wordmark { font: 400 1.5rem/1.2 var(--font-wordmark); }
+      .row { display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
+      .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: var(--space-2); list-style: none; padding: 0; margin: 0; }
+      .swatches li { font-size: var(--text-small); }
+      .chip { height: 56px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); margin-bottom: 6px; }
+      .card { background: var(--color-surface); border-radius: var(--radius-card); padding: var(--space-3); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="theme-set" role="group" aria-label="Theme for this test">
+        <button type="button" data-theme-set="auto" aria-pressed="true">Auto (device)</button>
+        <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme-set="dark" aria-pressed="false">Dark</button>
+      </div>
+
+      <header>
+        <p class="label text-muted">S02 · tokens and base</p>
+        <h1>Bite‑sized product lessons for PMs</h1>
+        <p class="deck">A roadmap is a forecast dressed up as a promise.</p>
+      </header>
+
+      <section>
+        <h2>Body, link and button</h2>
+        <p>Every roadmap I’ve shipped started as a confident slide and ended as a list of apologies. Not because the team was slow, but because the roadmap pretended to know things nobody knew yet. Read the <a href="https://basecamp.com/shapeup">Shape Up book</a> for another way.</p>
+        <p class="text-muted text-small">7 Oct 2026 · Muted small text for dates and captions.</p>
+        <div class="row">
+          <button class="btn-solid" type="button">Copy link to this lesson</button>
+          <a class="btn-solid" href="/">View all lessons <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <section class="fonts">
+        <h2>The four fonts</h2>
+        <p class="serif">Instrument Serif: The Take Away</p>
+        <p class="serif-i">Instrument Serif italic: Until the next fika…</p>
+        <p>Public Sans 400 · <strong style="font-weight:500">500</strong> · <strong style="font-weight:600">600</strong> · <strong>700</strong></p>
+        <p class="label" style="color: var(--color-deck)">IBM Plex Mono · Author of fika.pm</p>
+        <p class="wordmark">fika.pm</p>
+      </section>
+
+      <section>
+        <h2>Colours</h2>
+        <ul class="swatches">
+          {swatches.map(([token, name]) => (
+            <li><div class="chip" style={`background: var(${token})`}></div>{name}<br /><code class="text-muted">{token}</code></li>
+          ))}
+        </ul>
+        <div class="card"><p>Surface card on the page background.</p></div>
+      </section>
+    </main>
+
+    <script>
+      const root = document.documentElement;
+      const buttons = document.querySelectorAll<HTMLButtonElement>('[data-theme-set]');
+      const sync = () => {
+        const current = root.getAttribute('data-theme') ?? 'auto';
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.themeSet === current)));
+      };
+      buttons.forEach((b) => b.addEventListener('click', () => {
+        const v = b.dataset.themeSet!;
+        if (v === 'auto') { root.removeAttribute('data-theme'); try { localStorage.removeItem('fika-theme'); } catch {} }
+        else { root.setAttribute('data-theme', v); try { localStorage.setItem('fika-theme', v); } catch {} }
+        sync();
+      }));
+      sync();
+    </script>
+  </body>
+</html>

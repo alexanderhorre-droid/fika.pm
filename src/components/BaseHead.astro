@@ -1,0 +1,44 @@
+---
+// Everything in <head>: meta, fonts, tokens, base styles and the theme bootstrap.
+import '../styles/tokens.css';
+import '../styles/base.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+const {
+  title,
+  description = 'Bite‑sized product lessons for PMs: pragmatic notes you can read on a coffee break and use the same day.',
+  noindex = false,
+} = Astro.props;
+const fonts =
+  'https://fonts.googleapis.com/css2?family=Bungee&family=IBM+Plex+Mono:wght@500&family=Instrument+Serif:ital@0;1&family=Public+Sans:wght@400;500;600;700&display=swap';
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex" />}
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#f5efe6" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#15171a" media="(prefers-color-scheme: dark)" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Only four families: Instrument Serif, Public Sans, IBM Plex Mono, Bungee. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style" href={fonts} />
+<link rel="stylesheet" href={fonts} media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href={fonts} /></noscript>
+
+<!-- Dark mode follows the device; a saved choice from the nav switch overrides it. Runs before paint. -->
+<script is:inline>
+  try {
+    var t = localStorage.getItem('fika-theme');
+    if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+</script>
