@@ -18,7 +18,7 @@
 
 - **Monochrome UI.** Graphite on Oat milk. The only chromatic colours are decorative: the pastel sprinkles and the yellow highlighter. Neither is ever used for text, links or controls.
 - **Buttons do things; links go places.** Solid buttons are for actions (copy, share, filter). Links navigate. One deliberate exception: a link may be *styled* as a solid button when it is the main way forward from a section ("View all lessons →", "View Work →"). It stays an `<a>`.
-- **Pills are labels or toggles, never buttons.** Topic tags, filter chips and "Coming soon" tags are pills.
+- **Pills are labels or toggles, never buttons.** Topic tags, filter chips and "Coming soon" tags are pills. Topic tags and filter chips are sentence case ("Roadmap"), never uppercase, even beside the uppercase date label; only the Coming soon tag is uppercase.
 - **Bite-sized everywhere.** Short headings, short paragraphs, one idea per block.
 - **Nothing links to an unbuilt page, and nothing unapproved is public.** Unbuilt items are "Coming soon"; unapproved pages exist on preview links only (see *Publishing*).
 
