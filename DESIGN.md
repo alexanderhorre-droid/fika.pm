@@ -140,7 +140,7 @@ Secondary pages (Product Lessons, lesson, About) hide the curved FIKA.PM label. 
 - Hairline on top of the content edge; tall and airy (128px above, 160px below on desktop).
 - **Column 1:** FIKA.PM (Bungee) heading; Home, Product Lessons, About me (Coming soon), Work (Coming soon).
 - **Column 2:** "Contact"; solid **Copy my email: alex@fika.pm** button (→ "Email copied ✓"); **LinkedIn ↗** link to the profile.
-- **Column 3:** the **author card** — animated avatar (head turns left/forward/right on a 12s loop), "Alexander Horré", role line in Iron mono ("AUTHOR OF FIKA.PM / SENIOR PRODUCT MANAGER"), bio: "After 15 years as a PM, I'm sharing how I think about the craft. Each lesson pairs hands-on experience with the industry's evolving thinking on strategic and tactical product management." 27rem wide on desktop.
+- **Column 3:** the **author card** — animated avatar (head turns left/forward/right on a 12s loop), "Alexander Horré", role line in Iron mono ("AUTHOR OF FIKA.PM / SENIOR PRODUCT MANAGER"), bio: "15 years in product management, distilled into short lessons on strategy, craft, and building better products. Best enjoyed with a fika." 27rem wide on desktop.
 - All three column headings share one 36px line box so they align.
 - **Legal row:** "© 2026 Alexander Horré" left · "Stockholm, Sweden · San Francisco, California" right.
 - Below 64rem the columns stack: navigation, contact, author card.

@@ -47,7 +47,7 @@ Approved wording, page by page. Use it exactly; headings never end in a full sto
 
 - **Column 1:** FIKA.PM · Home · Product Lessons · About me (Coming soon) · Work (Coming soon)
 - **Column 2:** Contact · Copy my email: alex@fika.pm → Email copied ✓ · LinkedIn ↗ (https://www.linkedin.com/in/alexander-horr%C3%A9-9b959a6/)
-- **Author card:** Alexander Horré · AUTHOR OF FIKA.PM / SENIOR PRODUCT MANAGER · After 15 years as a PM, I’m sharing how I think about the craft. Each lesson pairs hands-on experience with the industry’s evolving thinking on strategic and tactical product management.
+- **Author card:** Alexander Horré · AUTHOR OF FIKA.PM / SENIOR PRODUCT MANAGER · 15 years in product management, distilled into short lessons on strategy, craft, and building better products. Best enjoyed with a fika.
 - **Legal:** © 2026 Alexander Horré · Stockholm, Sweden · San Francisco, California
 
 ## Alt text
