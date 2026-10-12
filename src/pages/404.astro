@@ -1,0 +1,27 @@
+---
+// 404: shown for any address that doesn't exist. Cloudflare Pages serves dist/404.html with a real 404 status.
+import '../styles/masthead.css';
+import '../styles/lesson.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+---
+<BaseLayout title="Page not found · fika.pm" description="This page doesn’t exist." noindex>
+  <header class="lesson-hero notfound">
+    <p class="label notfound-code">404 · Page not found</p>
+    <hgroup>
+      <h1 class="hero-heading">Nothing brewing here</h1>
+      <p class="hero-deck">This page doesn’t exist, or it has moved. Try the lessons instead.</p>
+    </hgroup>
+    <div class="notfound-actions">
+      <Button href="/lessons" arrow>View all lessons</Button>
+      <a href="/">Go to the homepage</a>
+    </div>
+  </header>
+</BaseLayout>
+
+<style>
+  .notfound { padding-block: var(--space-6) var(--space-7); }
+  .notfound-code { margin-bottom: var(--space-2); color: var(--color-text-muted); }
+  .notfound-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); margin-top: var(--space-5); }
+  .notfound-actions > a:not(.btn-solid) { font-weight: 600; }
+</style>
