@@ -96,7 +96,7 @@ No shadows, with one exception: the **floating nav bar** (`--nav-shadow`) and th
 
 ## Icons and marks
 
-Text glyphs, no icon font: **→** navigate onward · **←** back · **↗** opens another site in a new tab · **↓/↑** expand/collapse · **✓** selected filter chip · sun/moon in the dark mode switch · **■** end-of-text tombstone.
+Text glyphs, no icon font, and never emoji (the four fonts carry no arrows, so arrows come from the device's own fonts): **→** navigate onward · **←** back · **↗** a lesson's sources (Show the Receipts), always with the text-presentation selector (U+FE0E) so devices can't show it as an emoji · **↓/↑** expand/collapse · **✓** selected filter chip · sun/moon in the dark mode switch · **■** end-of-text tombstone.
 
 ## Pages
 
@@ -189,7 +189,7 @@ Pastel sprinkles drift slowly upward behind the top section of **every page**: t
 
 - Hairline on top of the content edge; tall and airy (128px above, 160px below on desktop).
 - **Column 1:** FIKA.PM (Bungee) heading; Home, Product Lessons, About me (Coming soon), Work (Coming soon).
-- **Column 2:** "Contact"; solid **Copy my email: alex@fika.pm** button (→ "Email copied ✓" for 2 seconds; if copying is blocked the button shows the address to select); **LinkedIn ↗** link to the profile, new tab.
+- **Column 2:** "Contact"; solid **Copy my email: alex@fika.pm** button (→ "Email copied ✓" for 2 seconds; if copying is blocked the button shows the address to select); **LinkedIn** link to the profile (no arrow), new tab.
 - **Column 3:** the **author card** — animated avatar (head turns left/forward/right on a 12s loop, pauses on hover), "Alexander Horré", role line in Iron mono ("AUTHOR OF FIKA.PM / SENIOR PRODUCT MANAGER"), bio: "15 years in product management, distilled into short lessons on strategy, craft, and building better products. Best enjoyed with a fika." 27rem wide on desktop.
 - All three column headings share one 36px line box so they align.
 - **Legal row:** "© 2026 Alexander Horré" left · "Stockholm, Sweden · San Francisco, California" right.

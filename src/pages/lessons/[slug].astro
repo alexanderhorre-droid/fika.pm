@@ -52,7 +52,7 @@ const host = (u: string) => new URL(u).hostname.replace(/^www\./, '');
         <ol class="receipts-list">
           {receipts.map((r) => (
             <li>
-              <a href={r.url} target="_blank" rel="noopener noreferrer"><span class="rc-prompt" aria-hidden="true">$ open</span> <span class="rc-title">{r.title}</span> <span class="rc-ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+              <a href={r.url} target="_blank" rel="noopener noreferrer"><span class="rc-prompt" aria-hidden="true">$ open</span> <span class="rc-title">{r.title}</span> <span class="rc-ext" aria-hidden="true">↗︎</span><span class="visually-hidden"> (opens in a new tab)</span></a>
               <span class="rc-meta"># {r.author} · {host(r.url)}</span>
             </li>
           ))}
