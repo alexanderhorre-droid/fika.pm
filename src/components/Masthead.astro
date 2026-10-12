@@ -3,9 +3,10 @@
 import '../styles/masthead.css';
 import { Image } from 'astro:assets';
 import portrait from '../assets/portrait-hedcut.webp';
+import MastheadSprinkles from './MastheadSprinkles.astro';
 
-interface Props { arc?: boolean; portrait?: boolean; class?: string }
-const { arc = true, portrait: showPortrait = true, class: cls } = Astro.props;
+interface Props { arc?: boolean; portrait?: boolean; sprinkles?: boolean; class?: string }
+const { arc = true, portrait: showPortrait = true, sprinkles = arc, class: cls } = Astro.props;
 
 // Arc geometry from the prototype: 296px wide, 160px bend; text 24px (phones/tablets) and 36px (desktop).
 // viewBoxes are the measured text bounds with Bungee loaded.
@@ -14,6 +15,7 @@ const arcs = [
   { cls: 'arc-lg', fs: 36, y: 197.8, vb: '40.07 21.81 215.15 78', w: 215.15, h: 78 },
 ];
 ---
+{sprinkles && <MastheadSprinkles />}
 <section class:list={['hero', cls]} aria-label="Introduction">
   <div class="hero-copy">
     {arc && (

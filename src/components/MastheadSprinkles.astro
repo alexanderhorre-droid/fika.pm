@@ -1,0 +1,105 @@
+---
+// S12: pastel sprinkles drifting up behind the home masthead.
+// Kept faint behind the text, cut out of the portrait, paused off-screen and in background tabs,
+// still (drawn once) with reduced motion. Absolutely positioned, so it never shifts layout.
+---
+<canvas class="sprinkles" aria-hidden="true"></canvas>
+
+<style is:global>
+  .sprinkles { position: absolute; top: 0; left: 0; width: 100%; height: 0; z-index: -1; pointer-events: none; display: block; }
+</style>
+
+<script>
+  const cv = document.querySelector<HTMLCanvasElement>('canvas.sprinkles');
+  const hero = document.querySelector<HTMLElement>('.hero');
+  const copy = document.querySelector<HTMLElement>('.hero-copy');
+  const ctx = cv?.getContext('2d');
+  if (cv && hero && copy && ctx) {
+    const root = document.documentElement;
+    // Values from the approved prototype: drift · 100 sprinkles · 5.5px long · 3.5px thick.
+    const COUNT = 100, LEN = 5.5, THICK = 3.5;
+    const COLOURS = {
+      light: ['#f0899f', '#f6cc4a', '#5fcf98', '#9d86f0', '#5fb2f0'],
+      dark: ['#f59ab0', '#f8d465', '#74dba8', '#ad99f4', '#78c0f4'],
+    };
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    const darkMq = matchMedia('(prefers-color-scheme: dark)');
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const mask = new Image();
+    mask.src = '/images/portrait-mask.png';
+
+    let W = 0, H = 0, seed = 11, raf = 0, last = 0, visible = true, t0 = performance.now();
+    type P = { x: number; y: number; r: number; c: number; ph: number; vr: number; depth: number };
+    let parts: P[] = [];
+    const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    const isDark = () => { const t = root.getAttribute('data-theme'); return t ? t === 'dark' : darkMq.matches; };
+
+    const make = () => {
+      parts = Array.from({ length: COUNT }, () => ({ x: rnd() * W, y: rnd() * H, r: rnd() * Math.PI, c: rnd(), ph: rnd() * Math.PI * 2, vr: (rnd() - 0.5) * 0.8, depth: 0.15 + rnd() * 0.6 }));
+      t0 = performance.now();
+    };
+
+    const resize = () => {
+      const h = hero.getBoundingClientRect().bottom + scrollY;
+      const w = root.clientWidth;
+      if (Math.abs(w - W) < 1 && Math.abs(h - H) < 1) return;
+      const first = !W, kx = W ? w / W : 1, ky = H ? h / H : 1;
+      W = w; H = h;
+      cv.style.height = `${H}px`; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      if (first) make(); else parts.forEach((p) => { p.x *= kx; p.y *= ky; }); // stretch with the window
+      draw(0);
+    };
+
+    function draw(dt: number) {
+      const t = (performance.now() - t0) / 1000;
+      const cols = COLOURS[isDark() ? 'dark' : 'light'];
+      const r = copy.getBoundingClientRect(), pad = 24;
+      const clear = { x0: r.left - pad, y0: r.top + scrollY - pad, x1: r.right + pad, y1: r.bottom + scrollY + pad };
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+      ctx.lineCap = 'round'; ctx.lineWidth = THICK;
+      const k = dt / 16.67;
+      for (const p of parts) {
+        if (k) {
+          p.y -= 0.12 * k * (0.5 + p.depth);
+          p.x += Math.sin(t * 0.3 + p.ph) * 0.08 * k;
+          p.r += p.vr * 0.004 * k;
+          if (p.y < -20) { p.y = H + 20; p.x = rnd() * W; }
+        }
+        // Faint behind the headline so it stays easy to read.
+        ctx.globalAlpha = p.x > clear.x0 && p.x < clear.x1 && p.y > clear.y0 && p.y < clear.y1 ? 0.2 : 1;
+        ctx.strokeStyle = cols[Math.floor(p.c * cols.length)];
+        const cx = (Math.cos(p.r) * LEN) / 2, cy = (Math.sin(p.r) * LEN) / 2;
+        ctx.beginPath(); ctx.moveTo(p.x - cx, p.y - cy); ctx.lineTo(p.x + cx, p.y + cy); ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      // Cut the portrait's silhouette out so no sprinkle sits on the face.
+      const img = document.querySelector<HTMLElement>('.hero-portrait img');
+      if (img && mask.complete && mask.naturalWidth) {
+        const b = img.getBoundingClientRect();
+        ctx.save(); ctx.globalCompositeOperation = 'destination-out';
+        ctx.drawImage(mask, b.left, b.top + scrollY, b.width, b.height);
+        ctx.restore();
+      }
+    }
+
+    const loop = (now: number) => {
+      raf = 0;
+      if (!visible || document.hidden || reduce.matches) return;
+      draw(last ? Math.min(50, now - last) : 0);
+      last = now;
+      raf = requestAnimationFrame(loop);
+    };
+    const start = () => { if (!raf && visible && !document.hidden && !reduce.matches) { last = 0; raf = requestAnimationFrame(loop); } };
+
+    new IntersectionObserver((es) => { visible = es[0].isIntersecting; if (visible) start(); }).observe(hero);
+    document.addEventListener('visibilitychange', start);
+    reduce.addEventListener('change', () => { draw(0); start(); });
+    addEventListener('resize', resize);
+    new MutationObserver(() => draw(0)).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    darkMq.addEventListener('change', () => draw(0));
+    mask.addEventListener('load', () => draw(0));
+    document.fonts?.ready.then(() => { W = 0; resize(); });
+    resize();
+    start();
+  }
+</script>

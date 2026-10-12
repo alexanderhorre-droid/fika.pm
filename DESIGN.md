@@ -34,7 +34,7 @@
 | Receipts card | Paper | `#fbf8f3` | `#202327` | `--color-receipts` (+ `-border` `#dcd5c9` / `#2e3238`) | Show the Receipts card |
 
 - **Highlighter:** yellow `#f5cf3f` at 75% (dark: mustard `#b8901c` at 55%). Decorative.
-- **Sprinkles:** rose `#eaa0b0`, butter `#f1d278`, mint `#8cd2af`, lilac `#b0a2e8`, sky `#8bc0ea` (slightly lighter in dark mode). Decorative.
+- **Sprinkles:** rose `#eaa0b0`, butter `#f1d278`, mint `#8cd2af`, lilac `#b0a2e8`, sky `#8bc0ea` (slightly lighter in dark mode), used in the sign-off card and the logo. The home masthead uses a brighter set: `#f0899f`, `#f6cc4a`, `#5fcf98`, `#9d86f0`, `#5fb2f0` (dark: `#f59ab0`, `#f8d465`, `#74dba8`, `#ad99f4`, `#78c0f4`). Decorative.
 
 ### Interaction
 
