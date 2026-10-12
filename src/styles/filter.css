@@ -1,0 +1,45 @@
+/* ---------- Product Lessons: topic filter (S10) ---------- */
+/* No hairline above the list: the h1 leads straight into "All lessons" (as in the prototype). */
+.writing-section .section-head { flex-wrap: wrap; row-gap: var(--space-2); }
+
+/* The filter: a small Graphite bar right of the heading that opens downward over the list, like the nav menu. */
+.filter-pop { position: relative; flex: none; margin-left: auto; height: var(--btn-h); width: var(--filter-closed-w, 11rem); }
+html:not(.js) .filter-pop { display: none; } /* without JavaScript the full list shows, no filter */
+.filter-box {
+  position: absolute; top: 0; right: 0; z-index: 30;
+  width: max-content; max-width: min(26rem, calc(100vw - 2 * var(--gutter)));
+  background: var(--color-nav-bg); color: var(--color-nav-fg);
+  border: 1px solid var(--color-nav-border); border-radius: calc(var(--btn-h) / 2);
+  /* chips inside the dark bar */
+  --color-text: #f2f3f4; --color-text-muted: #a7adb4; --color-border-strong: #f2f3f4;
+  --color-chip: transparent; --color-bg: #1b1e22; --color-button-hover: #c9ced3;
+}
+.filter-box.is-open { border-radius: 24px; width: min(26rem, calc(100vw - 2 * var(--gutter))); box-shadow: var(--nav-shadow); }
+.filter-toggle {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  width: 100%; min-height: calc(var(--btn-h) - 2px); padding: 0 20px;
+  border: 0; background: transparent; color: inherit; border-radius: inherit; cursor: pointer;
+  font: 600 var(--nav-font)/1 var(--font-sans); white-space: nowrap;
+  text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px;
+}
+.filter-toggle:hover { text-decoration-color: currentColor; }
+.filter-toggle:focus-visible { outline: 2px solid var(--color-nav-fg); outline-offset: -4px; }
+.filter-toggle-main { display: inline-flex; align-items: center; gap: 10px; }
+.filter-badge {
+  display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px;
+  background: var(--color-nav-fg); color: var(--color-nav-bg); font-size: 12px;
+}
+.filter-badge[hidden] { display: none; }
+.filter-close-text { display: none; font-weight: 400; text-decoration: underline; text-underline-offset: 3px; }
+.filter-box.is-open .filter-close-text { display: inline; }
+.filter-box.is-open .filter-toggle { text-decoration: none; }
+.filter-panel { padding: 4px 16px 16px; border-top: 1px solid var(--color-nav-divider); animation: navIn 150ms ease-out; }
+.filter-pills { display: flex; flex-wrap: wrap; gap: var(--space-1); padding-top: 16px; }
+
+.writing-section .post.is-filtered { display: none; }
+.writing-section .post.is-first { border-top: 0; padding-top: 0; }
+.writing-section .post.just-shown { animation: postIn 220ms ease; }
+@keyframes postIn { from { opacity: 0; transform: translateY(4px); } }
+.filter-empty { margin: 0; color: var(--color-text-muted); }
+
+@media (prefers-reduced-motion: reduce) { .filter-panel, .writing-section .post.just-shown { animation: none; } }

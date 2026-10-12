@@ -1,0 +1,137 @@
+---
+// S10 Product Lessons: h1 · "All lessons" + Filter by topic · the full list.
+// Chips come from the topics used in the lessons. Multi-select shows lessons on ANY selected topic.
+// Works from links: /lessons?topic=roadmap or ?topic=roadmap,framework. Without JavaScript the full list shows.
+import '../../styles/masthead.css';
+import '../../styles/lesson.css';
+import '../../styles/filter.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Highlight from '../../components/Highlight.astro';
+import Pill from '../../components/Pill.astro';
+import LessonListItem from '../../components/LessonListItem.astro';
+import { getLessons, getTopics } from '../../lib/lessons';
+
+const lessons = await getLessons();
+const topics = getTopics(lessons);
+---
+<BaseLayout
+  title="Product Lessons · fika.pm"
+  description="Every bite‑sized product lesson on fika.pm, filterable by topic."
+  current="lessons"
+>
+  <header class="lesson-hero">
+    <h1 class="hero-heading">Bite‑sized Product Lessons</h1>
+  </header>
+
+  <section class="writing-section" aria-labelledby="all-lessons">
+    <div class="section-head">
+      <h2 class="section-title" id="all-lessons"><Highlight><span class="filter-heading">All lessons</span></Highlight></h2>
+      <div class="filter-pop">
+        <div class="filter-box">
+          <button type="button" class="filter-toggle" aria-expanded="false" aria-controls="filter-panel">
+            <span class="filter-toggle-main"><span>Filter by topic</span><span class="filter-badge" hidden></span></span>
+            <span class="filter-close-text" aria-hidden="true">Close</span>
+          </button>
+          <div class="filter-panel" id="filter-panel" hidden>
+            <div class="filter-pills" role="group" aria-label="Topics">
+              <button type="button" class="chip chip-all" aria-pressed="true">All</button>
+              {topics.map((t) => <Pill kind="chip" topic={t.label}>{t.label}</Pill>)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-list">
+      {lessons.map((lesson) => <LessonListItem lesson={lesson} />)}
+      <p class="filter-empty" hidden></p>
+    </div>
+    <p class="visually-hidden filter-live" aria-live="polite"></p>
+  </section>
+</BaseLayout>
+
+<script>
+  const box = document.querySelector<HTMLElement>('.filter-box')!;
+  const pop = box.parentElement!;
+  const toggle = box.querySelector<HTMLButtonElement>('.filter-toggle')!;
+  const panel = box.querySelector<HTMLElement>('.filter-panel')!;
+  const badge = box.querySelector<HTMLElement>('.filter-badge')!;
+  const all = box.querySelector<HTMLButtonElement>('.chip-all')!;
+  const chips = [...box.querySelectorAll<HTMLButtonElement>('.chip[data-tag]')];
+  const posts = [...document.querySelectorAll<HTMLElement>('.writing-section .post')];
+  const heading = document.querySelector<HTMLElement>('.filter-heading')!;
+  const empty = document.querySelector<HTMLElement>('.filter-empty')!;
+  const live = document.querySelector<HTMLElement>('.filter-live')!;
+
+  const labelFor = (slug: string) =>
+    chips.find((c) => c.dataset.tag === slug)?.textContent?.trim() ??
+    slug.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
+  const joinOr = (xs: string[]) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} or ${xs[xs.length - 1]}`);
+
+  // Selected topics. Can include a topic with no chip (from a ?topic= link), which gives the empty state.
+  let selected: string[] = [];
+
+  function apply(announce = true) {
+    chips.forEach((c) => c.setAttribute('aria-pressed', String(selected.includes(c.dataset.tag!))));
+    all.setAttribute('aria-pressed', String(selected.length === 0));
+
+    let shown = 0;
+    let first: HTMLElement | undefined;
+    for (const p of posts) {
+      const tags = (p.dataset.topics ?? '').split(/\s+/);
+      const match = !selected.length || selected.some((t) => tags.includes(t));
+      const wasHidden = p.classList.contains('is-filtered');
+      p.classList.toggle('is-filtered', !match);
+      p.classList.remove('just-shown');
+      if (match && wasHidden) { void p.offsetWidth; p.classList.add('just-shown'); }
+      if (match) { shown++; first ??= p; }
+    }
+    posts.forEach((p) => p.classList.toggle('is-first', p === first));
+
+    // The heading follows the filter: All lessons → Roadmap lessons → Roadmap and Framework lessons → Lessons on 3 topics.
+    const names = selected.map(labelFor);
+    heading.textContent = !names.length ? 'All lessons'
+      : names.length === 1 ? `${names[0]} lessons`
+      : names.length === 2 ? `${names[0]} and ${names[1]} lessons`
+      : `Lessons on ${names.length} topics`;
+
+    empty.hidden = shown > 0;
+    empty.textContent = `No lessons on ${joinOr(names)} yet.`;
+
+    const n = chips.filter((c) => selected.includes(c.dataset.tag!)).length;
+    badge.hidden = !n; badge.textContent = String(n); badge.setAttribute('aria-label', `${n} selected`);
+    sizeClosed();
+
+    if (announce) live.textContent = names.length ? `Showing lessons on ${names.join(', ')}` : 'Showing all lessons';
+
+    // Keep the URL shareable.
+    history.replaceState(null, '', selected.length ? `${location.pathname}?topic=${selected.map(encodeURIComponent).join(',')}` : location.pathname);
+  }
+
+  // Open / close like the nav menu: Escape (focus back to the button) or a click outside closes it.
+  function sizeClosed() { if (!box.classList.contains('is-open')) pop.style.setProperty('--filter-closed-w', `${Math.ceil(box.getBoundingClientRect().width)}px`); }
+  function setOpen(open: boolean, focusBack = false) {
+    box.classList.toggle('is-open', open);
+    panel.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close topic filter' : 'Filter by topic');
+    if (!open) { sizeClosed(); if (focusBack) toggle.focus(); }
+  }
+  toggle.addEventListener('click', () => setOpen(!box.classList.contains('is-open')));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && box.classList.contains('is-open')) setOpen(false, true); });
+  document.addEventListener('click', (e) => { if (box.classList.contains('is-open') && !box.contains(e.target as Node)) setOpen(false); });
+
+  chips.forEach((c) => c.addEventListener('click', () => {
+    const t = c.dataset.tag!;
+    selected = selected.includes(t) ? selected.filter((x) => x !== t) : [...selected.filter((x) => chips.some((k) => k.dataset.tag === x)), t];
+    apply();
+  }));
+  all.addEventListener('click', () => { selected = []; apply(); });
+
+  // Start from ?topic= (topic tags on lessons link here).
+  const fromUrl = (new URL(location.href).searchParams.get('topic') ?? '').split(',').map((s) => s.trim().toLowerCase()).filter(Boolean);
+  selected = [...new Set(fromUrl)];
+  apply(false);
+  document.fonts?.ready.then(sizeClosed);
+  addEventListener('resize', sizeClosed);
+</script>
