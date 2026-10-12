@@ -35,6 +35,31 @@ Quote text values that contain a colon or `#` or start with a quote mark; quotin
 
 First person to one product person; practical, plain, a little warm. Sentence-case headings, no full stops. Named features keep capitals: Product Lessons, The Take Away, Show the Receipts. "fika.pm" lowercase in text. "Bite‑sized" with a non-breaking hyphen (U+2011). One coffee or baking metaphor per section at most. No emoji.
 
+## Writing in iA Writer
+
+iA Writer saves plain `.md` files, which is exactly what the site reads. Lessons live in the `lessons` folder inside your fika.pm folder in iCloud Drive.
+
+**Set up once**
+- [ ] In iA Writer's Library, add the `fika.pm/lessons` folder in iCloud Drive as a location.
+- [ ] Keep `_template.md` there as the blank lesson; `product-led-growth-starts-after-sign-up.md` is a finished example.
+
+**For each lesson**
+- [ ] Duplicate `_template.md`; rename the copy to the lesson's address (lowercase, hyphens, `.md`: `say-no-with-a-date.md` → `fika.pm/lessons/say-no-with-a-date`).
+- [ ] Fill the frontmatter between the two `---` lines; keep the quotes and two-space indents.
+- [ ] Write the body under the second `---`: `##` headings, short paragraphs, `**bold**`, `*italics*`, links. No `#` heading, no images.
+- [ ] Length: iA Writer's counter includes the frontmatter, so aim for about 560 there; Claude checks the exact body count (≤ 500).
+- [ ] Set `draft: false` when it's ready to go live.
+- [ ] Save; iCloud syncs it.
+
+**Hand it to Claude**
+- [ ] Open the Claude desktop app on your Mac and start a chat in the fika.pm project, so Claude can read your fika.pm folder.
+- [ ] Say "publish `lessons/say-no-with-a-date.md`" (away from the Mac: attach the file).
+- [ ] Claude checks it, fixes small things, and replies with a preview link.
+- [ ] Check the preview on laptop and phone, light and dark; ask for changes or edit in iA Writer and say "update it".
+- [ ] Say "approve": it goes live on fika.pm.
+
+iA Writer's own preview won't look like fika.pm; the preview link is the real check.
+
 ## Publishing
 
 1. Write the lesson from the template.
