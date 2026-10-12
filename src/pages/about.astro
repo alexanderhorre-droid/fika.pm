@@ -1,0 +1,102 @@
+---
+// S11 About (built, not linked): masthead with portrait · What is FIKA.PM about? · format cards · timeline · sign-off.
+// Reachable only by URL and kept out of search until Alex approves linking it.
+import '../styles/masthead.css';
+import '../styles/lesson.css';
+import '../styles/about.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Masthead from '../components/Masthead.astro';
+import Highlight from '../components/Highlight.astro';
+import Pill from '../components/Pill.astro';
+import SignOff from '../components/SignOff.astro';
+import history from '../data/work-history.json';
+
+const VISIBLE = 3;
+const roles = history.roles;
+const more = roles.length - VISIBLE;
+const aboutTopics = ['Roadmap', 'Framework', 'Retention'];
+const formats = [
+  { label: 'Bite‑sized', title: 'One idea, one fika', text: 'Each lesson fits in a coffee break. Read it, and you’re done.' },
+  { label: 'The Take Away', title: 'One thing to keep', text: 'Every lesson ends with one take away you can use the same day.' },
+  { label: 'Show the Receipts', title: 'Sources to explore', text: 'Every lesson links the books, posts and talks behind it, so you can go deeper.' },
+];
+---
+<BaseLayout title="About · fika.pm" description="Alex, the product manager behind fika.pm." noindex current="about">
+  <Masthead arc={false} class="hero--about">
+    <hgroup>
+      <h1 class="hero-heading">Hi, I’m Alex</h1>
+      <p class="hero-deck">I’ve been working in tech as a product manager for 15 years. Building in Stockholm, Sweden via San Francisco, California.</p>
+    </hgroup>
+  </Masthead>
+
+  <article class="lesson-body about-body">
+    <h2 class="about-title">What is <Highlight class="brand-inline">fika.pm</Highlight> about?</h2>
+    <p>As product managers, we constantly source knowledge to help our product craft. I had an idea to share bite‑sized product lessons as insightful, actionable, quick reads while having a fika.</p>
+
+    <section class="about-topics" aria-label="Topics on fika.pm">
+      <p><strong>Product Lessons</strong> are structured into topic links, allowing for all related posts to group together over time. Reference earlier lessons, and see how topics build on each other over time, in each lesson. <strong>These topics</strong> from my first three posts, build on each other!</p>
+      <ul class="topic-list" aria-label="Topics">
+        {aboutTopics.map((t) => <li><Pill kind="topic" topic={t} size="lg">{t}</Pill></li>)}
+      </ul>
+      <p>The <strong>body of each lesson</strong> will always be 500 words or less. A concise, quick read of product insight around a topic. Just text, no images.</p>
+    </section>
+
+    <section class="about-format" aria-label="How each lesson works">
+      <p><strong>At the end</strong> of each Product Lesson, you’ll find The Take Away, the one thing to remember, and Show the Receipts, with the sources behind it.</p>
+      <ul class="takeaway-row">
+        {formats.map((f) => (
+          <li class="takeaway"><p class="takeaway-num">{f.label}</p><h3>{f.title}</h3><p>{f.text}</p></li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="about-me" aria-labelledby="about-me-title">
+      <div class="about-me-head">
+        <h2 id="about-me-title">About me</h2>
+        <!-- "View Work →" becomes a link once the Work page exists. -->
+        <span class="nav-soon" aria-disabled="true">View Work <span class="soon-tag">Coming soon</span></span>
+      </div>
+      <ol class="timeline" id="timeline" aria-label="Work history">
+        {roles.map((r, i) => (
+          <li class:list={{ 'tl-cut': i === VISIBLE - 1, 'tl-more': i >= VISIBLE }} data-more={i >= VISIBLE ? '' : undefined}>
+            <p class="tl-time">{r.dates}</p>
+            <h3 class="tl-role">{r.title}</h3>
+            <p class="tl-company">{r.company}</p>
+            <p class="tl-area">{r.area}</p>
+          </li>
+        ))}
+      </ol>
+      {more > 0 && (
+        <button type="button" class="tl-toggle" aria-expanded="false" aria-controls="timeline" data-more={more}>
+          <span class="tl-toggle-label">Show {more} more roles</span> <span class="tl-chev" aria-hidden="true">↓</span>
+        </button>
+      )}
+    </section>
+
+    <SignOff note="Say hej. I’d love to hear what you’re working on." label="Get in touch" />
+  </article>
+</BaseLayout>
+
+<script>
+  // Timeline: first three roles, then the line fades; "Show N more roles" expands, "Show fewer roles" collapses.
+  // Collapsing happens with JavaScript only, so without it every role shows.
+  const list = document.getElementById('timeline');
+  const btn = document.querySelector<HTMLButtonElement>('.tl-toggle');
+  if (list && btn) {
+    const label = btn.querySelector('.tl-toggle-label')!;
+    const more = list.querySelectorAll<HTMLElement>('.tl-more');
+    const n = btn.dataset.more;
+    const set = (open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      list.classList.toggle('is-collapsed', !open);
+      more.forEach((li) => { li.hidden = !open; li.classList.toggle('just-shown', open); });
+      label.textContent = open ? 'Show fewer roles' : `Show ${n} more roles`;
+    };
+    set(false);
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      set(open);
+      if (!open && list.getBoundingClientRect().top < 0) list.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+  }
+</script>

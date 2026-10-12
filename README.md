@@ -45,4 +45,5 @@ Node 22+ (`.node-version`).
 - [x] S08 · content · lessons-collection (8 placeholder lessons are drafts)
 - [x] S09 · page · lesson
 - [x] S10 · page · product-lessons
-- [ ] S11–S13: see `docs/STORIES.md`
+- [x] S11 · page · about (built at /about, not linked, noindex)
+- [ ] S12–S13: see `docs/STORIES.md`

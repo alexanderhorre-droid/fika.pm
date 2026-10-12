@@ -1,0 +1,69 @@
+/* ---------- About (S11): reuses the lesson column, Take Away cards and sign-off ---------- */
+/* Phones: portrait above the text, smaller. */
+@media (max-width: 39.99rem) {
+  .hero.hero--about { grid-template-columns: minmax(0, 1fr); }
+  .hero.hero--about .hero-portrait { order: -1; justify-self: start; width: 44%; margin-bottom: var(--space-1); }
+}
+.hero.hero--about .hero-heading { max-width: none; }
+
+.about-body p strong { font-weight: 700; }
+.about-body > section { margin-top: var(--space-6); }
+.about-body > section.about-topics, .about-body > section.about-format { margin-top: var(--space-3); }
+.about-body h2 { margin: 0 0 var(--space-3); font: 400 var(--text-h2)/1.25 var(--font-serif); }
+.about-title .brand-inline { font-size: 0.82em; -webkit-text-stroke: 0; padding: 0 0.06em; }
+.about-body > p, .about-body > section > p { margin: 0 0 var(--space-3); font-size: var(--text-body); line-height: 1.7; }
+.about-topics .topic-list { margin-bottom: var(--space-3); }
+.about-body > section.about-topics > p:last-child { margin-bottom: 0; }
+
+/* Format cards: three dark Take Away cards in a row; on phones one at a time, swipe to the next. */
+.takeaway-row { display: grid; grid-template-columns: 1fr; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
+.takeaway-row .takeaway { margin: 0; }
+.takeaway-row .takeaway h3 { margin: 0 0 8px; font: 400 1.3125rem/1.15 var(--font-serif); -webkit-text-stroke: 0.02em currentColor; paint-order: stroke fill; }
+.takeaway-row .takeaway p { margin: 0; }
+.takeaway-row .takeaway .takeaway-num { margin: 0 0 10px; }
+@media (min-width: 40rem) { .takeaway-row { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 39.99rem) {
+  .takeaway-row {
+    grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 84%;
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
+  }
+  .takeaway-row::-webkit-scrollbar { display: none; }
+  .takeaway-row .takeaway { scroll-snap-align: start; }
+}
+
+/* About me: heading + View Work (coming soon) on one row, then the timeline. */
+.about-me-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin: 0 0 var(--space-3); }
+.about-me-head h2 { margin: 0; }
+.about-me-head .nav-soon { min-height: var(--btn-h); color: var(--color-text-muted); font: 600 0.9375rem/1 var(--font-sans); } /* same row height as the future View Work button */
+
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline li { position: relative; padding: 0 0 var(--space-3) 36px; }
+.timeline li::before {
+  content: ""; position: absolute; left: 0; top: 3px; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--color-text); box-shadow: 0 0 0 4px var(--color-bg); z-index: 1;
+}
+.timeline li::after { content: ""; position: absolute; left: 5px; top: 15px; bottom: -3px; width: 2px; background: var(--color-border-strong); }
+.timeline li:last-child::after { display: none; }
+.timeline.is-collapsed li.tl-cut { padding-bottom: var(--space-2); }
+.timeline.is-collapsed li.tl-cut::after { display: block; bottom: -12px; background: linear-gradient(var(--color-border-strong), transparent); }
+.timeline li.tl-more.just-shown { animation: tlIn 260ms ease both; }
+@keyframes tlIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.timeline .tl-time { margin: 0 0 6px; font: 500 0.75rem/1.4 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-deck); }
+.timeline .tl-role { margin: 0 0 2px; font: 400 1.375rem/1.2 var(--font-serif); -webkit-text-stroke: 0.02em currentColor; paint-order: stroke fill; }
+.timeline .tl-company { margin: 0; font: 600 1rem/1.5 var(--font-sans); }
+.timeline .tl-area { margin: 0; font-size: 0.9375rem; line-height: 1.5; color: var(--color-text-muted); }
+
+.tl-toggle {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin: var(--space-1) 0 0 36px; padding: 0;
+  border: 0; background: none; color: var(--color-text); cursor: pointer;
+  font: 600 0.9375rem/1 var(--font-sans);
+  text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px;
+}
+.tl-toggle:hover { text-decoration-color: currentColor; }
+.tl-toggle:focus-visible { border-radius: 4px; outline-offset: 3px; }
+.tl-chev { display: inline-block; transition: transform 200ms ease; }
+.tl-toggle[aria-expanded="true"] .tl-chev { transform: rotate(180deg); }
+html:not(.js) .tl-toggle { display: none; }
+
+@media (prefers-reduced-motion: reduce) { .tl-chev { transition: none; } .timeline li.tl-more.just-shown { animation: none; } }

@@ -1,19 +1,22 @@
 ---
 // End-of-lesson sign-off: "Until the next fika…", share line, Copy link / Share button, faint sprinkles.
 import Highlight from './Highlight.astro';
-interface Props { path: string; title: string }
-const { path, title } = Astro.props;
+interface Props { path?: string; title?: string; note?: string; label?: string }
+// Without a path there is no share button (About page).
+const { path, title, note = 'Share this lesson with a colleague or friend.', label = 'Sign-off' } = Astro.props;
 ---
-<section class="signoff" aria-label="Sign-off">
+<section class="signoff" aria-label={label}>
   <canvas class="signoff-sprinkles" aria-hidden="true"></canvas>
   <div class="signoff-inner">
     <p class="signoff-line"><Highlight>Until the next fika…</Highlight></p>
-    <p class="signoff-note">Share this lesson with a colleague or friend.</p>
-    <div class="signoff-actions">
-      <button type="button" class="btn-solid share-btn" data-path={path} data-title={title}><span class="share-label">Copy link to this lesson</span></button>
-      <span class="visually-hidden share-live" aria-live="polite"></span>
-      <input class="share-fallback" type="text" readonly hidden aria-label="Lesson link" />
-    </div>
+    <p class="signoff-note">{note}</p>
+    {path && (
+      <div class="signoff-actions">
+        <button type="button" class="btn-solid share-btn" data-path={path} data-title={title}><span class="share-label">Copy link to this lesson</span></button>
+        <span class="visually-hidden share-live" aria-live="polite"></span>
+        <input class="share-fallback" type="text" readonly hidden aria-label="Lesson link" />
+      </div>
+    )}
   </div>
 </section>
 
