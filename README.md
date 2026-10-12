@@ -37,5 +37,5 @@ Node 22+ (`.node-version`).
 
 - [x] S01 · setup · astro-project (Lighthouse 100/100/100/100 on the placeholder)
 - [x] S02 · foundation · tokens-and-base (gate page: `/dev/base`)
-- [ ] S03 · foundation · layout-shell
+- [x] S03 · foundation · layout-shell (gate page: `/dev/shell`)
 - [ ] S04–S13: see `docs/STORIES.md`
