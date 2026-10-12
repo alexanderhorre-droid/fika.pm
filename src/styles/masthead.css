@@ -1,0 +1,45 @@
+/* ---------- Masthead (S07): curved FIKA.PM, bold h1, hedcut portrait. Never stacks. ---------- */
+.hero {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, var(--hero-portrait-sm));
+  gap: var(--space-2); align-items: center; margin-bottom: var(--hero-bottom);
+}
+@media (min-width: 40rem) { .hero { gap: var(--space-4); } }
+@media (min-width: 64rem) { .hero { grid-template-columns: minmax(0, 1fr) minmax(0, var(--hero-portrait-w)); gap: var(--hero-gap); } }
+
+.hero-copy { min-width: 0; }
+.hero-heading {
+  max-width: 16ch;
+  font: 400 var(--hero-size-sm)/1.05 var(--font-serif);
+  letter-spacing: -0.01em;
+  -webkit-text-stroke: var(--serif-bold) currentColor; paint-order: stroke fill;
+  text-wrap: balance;
+}
+@media (min-width: 64rem) {
+  .hero-heading { font-size: max(var(--hero-size-sm), min(calc(var(--hero-size-n) * 1px), calc(var(--hero-size-n) * 0.0783vw))); }
+}
+
+/* Curved FIKA.PM: Bungee on an arc. Two pre-measured SVGs, one per size, so nothing shifts as the page loads. */
+.hero-arc { margin: 0 0 12px; max-width: 100%; color: var(--color-text); }
+.hero-arc svg { display: block; overflow: visible; max-width: 100%; height: auto; }
+.hero-arc text { font-family: var(--font-wordmark); letter-spacing: 0.075em; fill: currentColor; }
+.hero-arc .arc-lg { display: none; }
+@media (min-width: 64rem) { .hero-arc .arc-sm { display: none; } .hero-arc .arc-lg { display: block; } }
+
+/* Portrait: the hedcut sits on a silhouette fill so sprinkles drifting behind never show through it. */
+.hero-portrait { position: relative; isolation: isolate; margin: 0; justify-self: end; width: 100%; }
+.hero-portrait::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; background: var(--portrait-fill);
+  -webkit-mask: url(/images/portrait-mask.png) center / 100% 100% no-repeat;
+  mask: url(/images/portrait-mask.png) center / 100% 100% no-repeat;
+}
+.hero-portrait img { display: block; width: 100%; height: auto; }
+
+/* Standfirst: full content width, hairline above. */
+.intro-row { border-top: 1px solid var(--color-border); padding-top: var(--space-5); margin-bottom: var(--space-section); }
+.standfirst { margin: 0 0 var(--space-5); }
+@media (min-width: 64rem) { .standfirst { margin: 0; } }
+.standfirst-text {
+  font: 400 clamp(1.75rem, 1.2rem + 2.2vw, 2.75rem)/1.2 var(--font-serif);
+  letter-spacing: -0.005em; text-wrap: pretty;
+}
+.standfirst-text .brand-inline { font-size: 0.71em; letter-spacing: 0.02em; }

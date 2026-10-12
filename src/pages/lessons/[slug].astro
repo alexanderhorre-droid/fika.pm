@@ -1,0 +1,23 @@
+---
+// A lesson at /lessons/<slug>. S08: plain rendering so the route exists; S09 gives it the full design.
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLessons, formatDate, type Lesson } from '../../lib/lessons';
+
+export async function getStaticPaths() {
+  const lessons = await getLessons();
+  return lessons.map((lesson) => ({ params: { slug: lesson.id }, props: { lesson } }));
+}
+
+const { lesson } = Astro.props as { lesson: Lesson };
+const { Content } = await render(lesson);
+const { title, deck, date, draft } = lesson.data;
+---
+<BaseLayout title={`${title} · fika.pm`} description={deck} noindex={draft} current="lessons">
+  <article class="reading">
+    <h1>{title}</h1>
+    <p>{deck}</p>
+    <p class="text-muted text-small"><time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time></p>
+    <Content />
+  </article>
+</BaseLayout>

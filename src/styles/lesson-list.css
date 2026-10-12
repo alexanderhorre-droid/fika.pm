@@ -1,0 +1,12 @@
+/* ---------- Lesson list (home: Recent lessons; S10: All lessons) ---------- */
+.post { padding: var(--space-4) 0; border-top: 1px solid var(--color-border); }
+.post:first-of-type { border-top: 0; padding-top: 0; }
+.post .meta {
+  margin: 0 0 var(--space-1);
+  font: 600 var(--text-label)/1.4 var(--font-sans); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.post h3 { max-width: var(--post-w); font: 400 var(--text-h2)/1.25 var(--font-serif); text-wrap: pretty; -webkit-text-stroke: 0; }
+.post h3 a { text-decoration: none; }
+.post h3 a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+.list-more { padding-top: var(--space-4); border-top: 1px solid var(--color-border); }

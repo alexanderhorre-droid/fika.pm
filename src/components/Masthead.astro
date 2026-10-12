@@ -1,0 +1,44 @@
+---
+// Page masthead. Home: curved FIKA.PM + bold h1 + portrait. The h1 comes in through the default slot.
+import '../styles/masthead.css';
+import { Image } from 'astro:assets';
+import portrait from '../assets/portrait-hedcut.webp';
+
+interface Props { arc?: boolean; portrait?: boolean }
+const { arc = true, portrait: showPortrait = true } = Astro.props;
+
+// Arc geometry from the prototype: 296px wide, 160px bend; text 24px (phones/tablets) and 36px (desktop).
+// viewBoxes are the measured text bounds with Bungee loaded.
+const arcs = [
+  { cls: 'arc-sm', fs: 24, y: 185.2, vb: '77.13 21.01 141.33 49.08', w: 141.33, h: 49.08 },
+  { cls: 'arc-lg', fs: 36, y: 197.8, vb: '40.07 21.81 215.15 78', w: 215.15, h: 78 },
+];
+---
+<section class="hero" aria-label="Introduction">
+  <div class="hero-copy">
+    {arc && (
+      <div class="hero-arc" aria-hidden="true">
+        {arcs.map((a) => (
+          <svg class={a.cls} viewBox={a.vb} width={a.w} height={a.h} focusable="false">
+            <path id={`arc-${a.cls}`} d={`M0 ${a.y} A148.45 148.45 0 0 1 296 ${a.y}`} fill="none" />
+            <text font-size={a.fs}><textPath href={`#arc-${a.cls}`} startOffset="50%" text-anchor="middle">fika.pm</textPath></text>
+          </svg>
+        ))}
+      </div>
+    )}
+    <slot />
+  </div>
+  {showPortrait && (
+    <figure class="hero-portrait">
+      <Image
+        src={portrait}
+        alt="Illustrated portrait of Alex in round sunglasses, a city skyline reflected in the lenses"
+        widths={[240, 360, 480, 768]}
+        sizes="(min-width: 64rem) 448px, 42vw"
+        loading="eager"
+        fetchpriority="high"
+        format="webp"
+      />
+    </figure>
+  )}
+</section>

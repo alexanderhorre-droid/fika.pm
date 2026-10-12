@@ -1,7 +1,9 @@
 ---
 // Highlighter: at most one per section. Decorative only — never on links or controls.
+interface Props { class?: string }
+const { class: cls } = Astro.props;
 ---
-<span class="highlight"><slot /></span>
+<span class:list={['highlight', cls]}><slot /></span>
 
 <script>
   // Draw each highlighter once, when 60% of it is on screen. Without IntersectionObserver, draw immediately.

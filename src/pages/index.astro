@@ -1,16 +1,35 @@
 ---
-// Placeholder home until S07.
+// S07 home: masthead · standfirst · recent lessons.
 import BaseLayout from '../layouts/BaseLayout.astro';
----
-<BaseLayout title="fika.pm · Bite‑sized product lessons for PMs" current="home">
-  <div class="placeholder">
-    <h1>Bite‑sized product lessons for PMs</h1>
-    <p class="text-muted"><span class="brand-inline">fika.pm</span> is brewing.</p>
-  </div>
-</BaseLayout>
+import Masthead from '../components/Masthead.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Highlight from '../components/Highlight.astro';
+import Button from '../components/Button.astro';
+import LessonListItem from '../components/LessonListItem.astro';
+import { getLessons } from '../lib/lessons';
 
-<style>
-  :global(.site-main:has(.placeholder)) { display: grid; place-items: center; }
-  .placeholder { text-align: center; }
-  h1 { font-size: clamp(2.5rem, 2rem + 3vw, 4rem); letter-spacing: -0.01em; margin-bottom: var(--space-2); }
-</style>
+const recent = (await getLessons()).slice(0, 3);
+---
+<BaseLayout
+  title="fika.pm · Bite‑sized product lessons for PMs"
+  description="fika.pm is a growing collection of bite‑sized product lessons. Drawn from years of leading empowered product teams, they cover craft, frameworks, first principles and industry insight."
+  current="home"
+>
+  <Masthead>
+    <h1 class="hero-heading">Bite‑sized product lessons for PMs</h1>
+  </Masthead>
+
+  <div class="intro-row">
+    <section class="standfirst" aria-label="About fika.pm">
+      <p class="standfirst-text"><Highlight class="brand-inline">fika.pm</Highlight> is a growing collection of bite‑sized product lessons. Drawn from years of leading empowered product teams, they cover craft, frameworks, first principles and industry insight.</p>
+    </section>
+  </div>
+
+  <section aria-labelledby="recent-lessons">
+    <SectionHeading id="recent-lessons">Recent lessons</SectionHeading>
+    {recent.map((lesson) => <LessonListItem lesson={lesson} />)}
+    <div class="list-more">
+      <Button href="/lessons" arrow>View all lessons</Button>
+    </div>
+  </section>
+</BaseLayout>

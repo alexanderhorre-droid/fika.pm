@@ -21,8 +21,8 @@ Node 22+ (`.node-version`).
 |---|---|
 | `src/pages/` | Routes |
 | `src/styles/tokens.css` | Design tokens (light + dark) |
-| `src/content/lessons/` | Lessons as Markdown (≤ 500 words, text only) |
-| `src/data/` | Lesson index placeholder, work history |
+| `src/content/lessons/` | Lessons as Markdown (≤ 500 words, text only; build fails otherwise). `draft: true` shows on preview URLs only |
+| `src/data/` | Work history (About timeline) |
 | `public/images/` | Portrait, avatar head views, donut logos |
 
 ## Deploy (Cloudflare Pages)
@@ -41,4 +41,6 @@ Node 22+ (`.node-version`).
 - [x] S04 · component · nav-bar (gate page: `/dev/nav`)
 - [x] S05 · component · footer (gate page: `/dev/footer`)
 - [x] S06 · component · small-parts (gate page: `/dev/parts`)
-- [ ] S07–S13: see `docs/STORIES.md`
+- [x] S07 · page · home
+- [x] S08 · content · lessons-collection (8 placeholder lessons are drafts)
+- [ ] S09–S13: see `docs/STORIES.md`
