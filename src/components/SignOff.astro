@@ -1,8 +1,8 @@
 ---
 // End-of-lesson sign-off: "Until the next fika…", share line, Copy link / Share button, faint sprinkles.
 import Highlight from './Highlight.astro';
-interface Props { url: string; title: string }
-const { url, title } = Astro.props;
+interface Props { path: string; title: string }
+const { path, title } = Astro.props;
 ---
 <section class="signoff" aria-label="Sign-off">
   <canvas class="signoff-sprinkles" aria-hidden="true"></canvas>
@@ -10,7 +10,7 @@ const { url, title } = Astro.props;
     <p class="signoff-line"><Highlight>Until the next fika…</Highlight></p>
     <p class="signoff-note">Share this lesson with a colleague or friend.</p>
     <div class="signoff-actions">
-      <button type="button" class="btn-solid share-btn" data-url={url} data-title={title}><span class="share-label">Copy link to this lesson</span></button>
+      <button type="button" class="btn-solid share-btn" data-path={path} data-title={title}><span class="share-label">Copy link to this lesson</span></button>
       <span class="visually-hidden share-live" aria-live="polite"></span>
       <input class="share-fallback" type="text" readonly hidden aria-label="Lesson link" />
     </div>
@@ -24,7 +24,7 @@ const { url, title } = Astro.props;
     const wrap = btn.parentElement!;
     const live = wrap.querySelector<HTMLElement>('.share-live')!;
     const fallback = wrap.querySelector<HTMLInputElement>('.share-fallback')!;
-    const url = btn.dataset.url || location.href.split('#')[0];
+    const url = btn.dataset.path ? new URL(btn.dataset.path, location.origin).href : location.href.split('#')[0];
     const title = btn.dataset.title || document.title;
     const useShare = !!navigator.share && matchMedia('(pointer: coarse)').matches;
     const base = useShare ? 'Share this lesson' : 'Copy link to this lesson';

@@ -17,7 +17,8 @@ export async function getStaticPaths() {
 const { lesson } = Astro.props as { lesson: Lesson };
 const { Content } = await render(lesson);
 const { title, deck, date, topics, takeaway, receipts, draft } = lesson.data;
-const url = new URL(`/lessons/${lesson.id}`, Astro.site).href;
+// The share button builds the full link from wherever the page is served (preview URL now, fika.pm after launch).
+const path = `/lessons/${lesson.id}`;
 const host = (u: string) => new URL(u).hostname.replace(/^www\./, '');
 ---
 <BaseLayout title={`${title} · fika.pm`} description={deck} noindex={draft} current="lessons">
@@ -59,6 +60,6 @@ const host = (u: string) => new URL(u).hostname.replace(/^www\./, '');
       </aside>
     )}
 
-    <SignOff url={url} title={`${title} · fika.pm`} />
+    <SignOff path={path} title={`${title} · fika.pm`} />
   </article>
 </BaseLayout>
