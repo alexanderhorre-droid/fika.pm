@@ -1,5 +1,6 @@
 ---
 // Everything in <head>: meta, fonts, tokens, base styles and the theme bootstrap.
+import { Font } from 'astro:assets';
 import '../styles/tokens.css';
 import '../styles/base.css';
 import '../styles/parts.css';
@@ -14,8 +15,6 @@ const {
   description = 'Bite‑sized product lessons for PMs: pragmatic notes you can read on a coffee break and use the same day.',
   noindex = false,
 } = Astro.props;
-const fonts =
-  'https://fonts.googleapis.com/css2?family=Bungee&family=IBM+Plex+Mono:wght@500&family=Instrument+Serif:ital@0;1&family=Public+Sans:wght@400;500;600;700&display=swap';
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 <meta charset="utf-8" />
@@ -29,12 +28,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 <meta name="theme-color" content="#15171a" media="(prefers-color-scheme: dark)" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-<!-- Only four families: Instrument Serif, Public Sans, IBM Plex Mono, Bungee. -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" as="style" href={fonts} />
-<link rel="stylesheet" href={fonts} media="print" onload="this.media='all'" />
-<noscript><link rel="stylesheet" href={fonts} /></noscript>
+<!-- Only four families: Instrument Serif, Public Sans, IBM Plex Mono, Bungee (self-hosted, see astro.config.mjs).
+     Preload the two that set the first screen. -->
+<Font cssVariable="--font-serif" preload />
+<Font cssVariable="--font-sans" preload />
+<Font cssVariable="--font-mono" />
+<Font cssVariable="--font-wordmark" />
 
 <!-- Dark mode follows the device; a saved choice from the nav switch overrides it. Runs before paint. -->
 <script is:inline>

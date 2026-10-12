@@ -56,7 +56,7 @@ Follows the reader's device by default; the **sun/moon switch** in the nav (and 
 | IBM Plex Mono | Role lines, card labels, receipts, timeline dates, soon tags | 500 | — |
 | Bungee | Wordmark and "fika.pm" in labels | 400 | `--sub-font` |
 
-Loaded from Google Fonts — only these four families.
+Google Fonts, downloaded at build time and served from the site itself (Astro's font loader) with size-matched fallbacks, so text never jumps when the fonts arrive. Only these four families.
 
 - **Bold serif:** Instrument Serif has no bold, so headings that need weight use `-webkit-text-stroke: ~0.028–0.03em currentColor; paint-order: stroke fill`. Used on: every h1, section titles, lesson h2s, card titles.
 - **Scale:** h2 `clamp(1.5rem, 1.25rem + 1.25vw, 2rem)`; body 1.125rem / 1.6–1.7; small 0.9375rem; label 0.75rem uppercase +0.08em.

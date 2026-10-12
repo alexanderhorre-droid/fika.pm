@@ -32,10 +32,8 @@
   --logo-shadow: drop-shadow(0 1px 1px rgba(27, 30, 34, .088)) drop-shadow(0 6px 9px rgba(27, 30, 34, .132));
 
   /* Type */
-  --font-serif: "Instrument Serif", Georgia, serif;
-  --font-sans: "Public Sans", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
-  --font-wordmark: "Bungee", system-ui, sans-serif;
+  /* Font families (--font-serif, --font-sans, --font-mono, --font-wordmark) are set by Astro's font
+     loader in astro.config.mjs, with size-matched fallbacks. */
   --text-h2: clamp(1.5rem, 1.25rem + 1.25vw, 2rem);
   --text-body: 1.125rem;
   --text-small: 0.9375rem;

@@ -47,5 +47,5 @@ Node 22+ (`.node-version`).
 - [x] S09 · page · lesson
 - [x] S10 · page · product-lessons
 - [x] S11 · page · about (preview links only until approved)
-- [ ] S12 · polish · motion (in progress on s12-motion)
+- [x] S12 · polish · motion
 - [ ] S13 · polish · launch-checks (404 page done)
