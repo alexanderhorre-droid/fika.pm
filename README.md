@@ -43,4 +43,5 @@ Node 22+ (`.node-version`).
 - [x] S06 · component · small-parts (gate page: `/dev/parts`)
 - [x] S07 · page · home
 - [x] S08 · content · lessons-collection (8 placeholder lessons are drafts)
-- [ ] S09–S13: see `docs/STORIES.md`
+- [x] S09 · page · lesson
+- [ ] S10–S13: see `docs/STORIES.md`

@@ -1,0 +1,89 @@
+---
+// End-of-lesson sign-off: "Until the next fika…", share line, Copy link / Share button, faint sprinkles.
+import Highlight from './Highlight.astro';
+interface Props { url: string; title: string }
+const { url, title } = Astro.props;
+---
+<section class="signoff" aria-label="Sign-off">
+  <canvas class="signoff-sprinkles" aria-hidden="true"></canvas>
+  <div class="signoff-inner">
+    <p class="signoff-line"><Highlight>Until the next fika…</Highlight></p>
+    <p class="signoff-note">Share this lesson with a colleague or friend.</p>
+    <div class="signoff-actions">
+      <button type="button" class="btn-solid share-btn" data-url={url} data-title={title}><span class="share-label">Copy link to this lesson</span></button>
+      <span class="visually-hidden share-live" aria-live="polite"></span>
+      <input class="share-fallback" type="text" readonly hidden aria-label="Lesson link" />
+    </div>
+  </div>
+</section>
+
+<script>
+  // Share: native share sheet on touch devices ("Share this lesson"), otherwise copy the link ("Link copied ✓").
+  document.querySelectorAll<HTMLButtonElement>('.share-btn').forEach((btn) => {
+    const label = btn.querySelector('.share-label')!;
+    const wrap = btn.parentElement!;
+    const live = wrap.querySelector<HTMLElement>('.share-live')!;
+    const fallback = wrap.querySelector<HTMLInputElement>('.share-fallback')!;
+    const url = btn.dataset.url || location.href.split('#')[0];
+    const title = btn.dataset.title || document.title;
+    const useShare = !!navigator.share && matchMedia('(pointer: coarse)').matches;
+    const base = useShare ? 'Share this lesson' : 'Copy link to this lesson';
+    label.textContent = base;
+    let timer: number | undefined;
+    const done = () => {
+      label.textContent = 'Link copied ✓'; btn.classList.add('is-done'); live.textContent = 'Link copied';
+      clearTimeout(timer); timer = window.setTimeout(() => { label.textContent = base; btn.classList.remove('is-done'); }, 2000);
+    };
+    const legacy = () => {
+      const ta = document.createElement('textarea');
+      ta.value = url; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand('copy'); } catch {}
+      ta.remove(); return ok;
+    };
+    const showFallback = () => { fallback.value = url; fallback.hidden = false; fallback.focus(); fallback.select(); live.textContent = 'Copy the link from the box'; };
+    const copy = () => {
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(url).then(done, () => (legacy() ? done() : showFallback()));
+      else legacy() ? done() : showFallback();
+    };
+    btn.addEventListener('click', () => {
+      if (useShare) navigator.share({ title, url }).catch((err) => { if (!err || err.name !== 'AbortError') copy(); });
+      else copy();
+    });
+  });
+
+  // Faint pastel sprinkles drifting up behind the sign-off; dimmed behind the text, paused off-screen and with reduced motion.
+  document.querySelectorAll<HTMLCanvasElement>('.signoff-sprinkles').forEach((cv) => {
+    const ctx = cv.getContext('2d'); if (!ctx) return;
+    const card = cv.parentElement!;
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    const css = getComputedStyle(document.documentElement);
+    const names = ['rose', 'butter', 'mint', 'lilac', 'sky'];
+    let W = 0, H = 0, seed = 7, raf = 0, visible = false, last = 0;
+    const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    const parts = Array.from({ length: 46 }, () => ({ x: rnd(), y: rnd(), r: rnd() * Math.PI, vr: (rnd() - 0.5) * 0.6, v: 0.012 + rnd() * 0.02, c: Math.floor(rnd() * 5), ph: rnd() * 6.28 }));
+    const palette = () => names.map((n) => getComputedStyle(document.documentElement).getPropertyValue(`--sprinkle-${n}`).trim() || css.getPropertyValue('--color-text'));
+    const size = () => {
+      const r = card.getBoundingClientRect(); if (!r.width) return;
+      W = r.width; H = r.height; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); draw(0);
+    };
+    const draw = (dt: number) => {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+      const pal = palette(), cx = W / 2, cy = H / 2;
+      for (const p of parts) {
+        if (dt) { p.y -= (p.v * dt) / 1000; p.r += (p.vr * dt) / 1000; if (p.y < -0.05) { p.y = 1.05; p.x = rnd(); } }
+        const x = p.x * W + Math.sin(p.ph + p.y * 6) * 6, y = p.y * H;
+        const dx = (x - cx) / (W * 0.36), dy = (y - cy) / (H * 0.42), d = Math.hypot(dx, dy);
+        ctx.save(); ctx.translate(x, y); ctx.rotate(p.r);
+        ctx.globalAlpha = Math.max(0.12, Math.min(1, (d - 0.55) / 0.6)) * 0.9; ctx.fillStyle = pal[p.c];
+        ctx.beginPath(); ctx.roundRect ? ctx.roundRect(-2.75, -1.75, 5.5, 3.5, 1.75) : ctx.rect(-2.75, -1.75, 5.5, 3.5); ctx.fill(); ctx.restore();
+      }
+    };
+    const loop = (t: number) => { raf = 0; if (!visible || reduce.matches) return; draw(last ? Math.min(t - last, 50) : 0); last = t; raf = requestAnimationFrame(loop); };
+    const start = () => { if (!raf && visible && !reduce.matches) { last = 0; raf = requestAnimationFrame(loop); } };
+    new IntersectionObserver((es) => { visible = es[0].isIntersecting; if (visible) { size(); start(); } }).observe(card);
+    addEventListener('resize', size);
+    new MutationObserver(() => draw(0)).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  });
+</script>

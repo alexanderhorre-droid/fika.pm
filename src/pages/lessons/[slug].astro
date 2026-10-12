@@ -1,8 +1,13 @@
 ---
-// A lesson at /lessons/<slug>. S08: plain rendering so the route exists; S09 gives it the full design.
+// S09 lesson page: back link · h1 + deck · date and topic tags · body (≤500 words, ■ end mark)
+// · The Take Away · Show the Receipts · sign-off with share.
+import '../../styles/masthead.css';
+import '../../styles/lesson.css';
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getLessons, formatDate, type Lesson } from '../../lib/lessons';
+import Pill from '../../components/Pill.astro';
+import SignOff from '../../components/SignOff.astro';
+import { getLessons, formatDate, topicLabel, type Lesson } from '../../lib/lessons';
 
 export async function getStaticPaths() {
   const lessons = await getLessons();
@@ -11,13 +16,49 @@ export async function getStaticPaths() {
 
 const { lesson } = Astro.props as { lesson: Lesson };
 const { Content } = await render(lesson);
-const { title, deck, date, draft } = lesson.data;
+const { title, deck, date, topics, takeaway, receipts, draft } = lesson.data;
+const url = new URL(`/lessons/${lesson.id}`, Astro.site).href;
+const host = (u: string) => new URL(u).hostname.replace(/^www\./, '');
 ---
 <BaseLayout title={`${title} · fika.pm`} description={deck} noindex={draft} current="lessons">
-  <article class="reading">
-    <h1>{title}</h1>
-    <p>{deck}</p>
-    <p class="text-muted text-small"><time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time></p>
-    <Content />
+  <header class="lesson-hero">
+    <a class="back-link" href="/lessons"><span class="arrow" aria-hidden="true">←</span> Back to Product Lessons</a>
+    <hgroup>
+      <h1 class="hero-heading">{title}</h1>
+      <p class="hero-deck">{deck}</p>
+    </hgroup>
+    <div class="lesson-meta">
+      <time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time>
+      <span aria-hidden="true">·</span>
+      <ul class="topic-list" aria-label="Topics">
+        {topics.map((t) => <li><Pill kind="topic" topic={t}>{topicLabel(t)}</Pill></li>)}
+      </ul>
+    </div>
+  </header>
+
+  <article class="lesson-body">
+    <div class="lesson-text"><Content /></div>
+
+    <section class="takeaway" aria-label="The Take Away">
+      <p class="takeaway-num">The Take Away</p>
+      <h2>{takeaway.title}</h2>
+      <p>{takeaway.text}</p>
+    </section>
+
+    {receipts.length > 0 && (
+      <aside class="receipts" id="receipts" aria-labelledby="receipts-title">
+        <h2 id="receipts-title">Show the Receipts</h2>
+        <ol class="receipts-list">
+          {receipts.map((r) => (
+            <li>
+              <a href={r.url} target="_blank" rel="noopener noreferrer"><span class="rc-prompt" aria-hidden="true">$ open</span> <span class="rc-title">{r.title}</span> <span class="rc-ext" aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+              <span class="rc-meta"># {r.author} · {host(r.url)}</span>
+            </li>
+          ))}
+        </ol>
+      </aside>
+    )}
+
+    <SignOff url={url} title={`${title} · fika.pm`} />
   </article>
 </BaseLayout>

@@ -1,0 +1,89 @@
+/* ---------- Lesson page (S09) ---------- */
+.lesson-hero { margin-bottom: var(--hero-bottom); }
+.lesson-hero .hero-heading { max-width: none; text-wrap: wrap; }
+.hero-deck {
+  margin-top: var(--deck-gap); max-width: 34ch;
+  font: 400 max(20px, calc(var(--hero-size-sm) * var(--deck-scale) * 0.0125))/1.25 var(--font-serif);
+  color: var(--color-deck); text-wrap: pretty;
+}
+@media (min-width: 64rem) {
+  .hero-deck { font-size: max(20px, min(calc(var(--hero-size-n) * var(--deck-scale) * 0.01px), calc(var(--hero-size-n) * var(--deck-scale) * 0.000783vw))); }
+}
+
+.back-link {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin: 0 0 var(--space-2);
+  font: 600 0.9375rem/1 var(--font-sans);
+  text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px;
+}
+.back-link:hover { text-decoration-color: currentColor; }
+.back-link .arrow { display: inline-block; transition: transform var(--ui-transition) ease; }
+.back-link:hover .arrow { transform: translateX(-3px); }
+
+.lesson-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: var(--space-3);
+  font: 600 var(--text-label)/1.4 var(--font-sans); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Body: hairline across the content width; text at reading width, 18px / 1.7. */
+.lesson-body { border-top: 1px solid var(--color-border); padding-top: var(--space-5); }
+.lesson-body > * { max-width: var(--post-w); }
+.lesson-text h2 { margin: 0 0 var(--space-3); font: 400 var(--text-h2)/1.25 var(--font-serif); }
+.lesson-text h2:not(:first-child) { margin-top: var(--space-5); }
+.lesson-text p, .lesson-text li { font-size: var(--text-body); line-height: 1.7; }
+.lesson-text p, .lesson-text ul, .lesson-text ol, .lesson-text blockquote { margin: 0 0 var(--space-3); }
+.lesson-text > :last-child { margin-bottom: 0; }
+.lesson-text blockquote { padding-left: var(--space-3); border-left: 2px solid var(--color-border-strong); font-style: italic; }
+/* End mark: a small solid square after the last word. */
+.lesson-text > p:last-child::after {
+  content: ""; display: inline-block; width: 0.55em; height: 0.55em; margin-left: 0.35em;
+  background: var(--color-text); vertical-align: -0.02em;
+}
+
+/* The Take Away: one inverted card. */
+.takeaway {
+  margin-top: var(--space-6); padding: var(--space-3);
+  border-radius: var(--radius-card); background: var(--color-takeaway); color: var(--color-takeaway-fg);
+}
+.takeaway-num {
+  margin: 0 0 10px; color: var(--color-takeaway-muted);
+  font: 500 0.75rem/1 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase;
+}
+.takeaway h2 { margin: 0 0 8px; font: 400 1.5rem/1.15 var(--font-serif); -webkit-text-stroke: 0.02em currentColor; paint-order: stroke fill; }
+.takeaway p:not(.takeaway-num) { font-size: 0.9375rem; line-height: 1.55; color: var(--color-takeaway-muted); }
+
+/* Show the Receipts: sources as CLI lines. */
+.receipts {
+  margin-top: var(--space-4); padding: var(--space-4);
+  background: var(--color-receipts); border: 1px solid var(--color-receipts-border); border-radius: var(--radius-card);
+}
+.receipts h2 { margin: 0 0 var(--space-3); font: 400 1.75rem/1.2 var(--font-serif); }
+.receipts-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); font: 500 0.875rem/1.55 var(--font-mono); }
+.receipts-list a { text-decoration: none; }
+.receipts-list .rc-title { text-decoration: underline; text-decoration-color: var(--color-border-strong); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.receipts-list a:hover .rc-title { text-decoration-thickness: 2px; }
+.receipts-list a:focus-visible { outline-offset: 3px; border-radius: 4px; }
+.rc-prompt, .rc-meta { color: var(--color-text-muted); }
+.rc-meta { display: block; }
+.rc-ext { display: inline-block; transition: transform var(--ui-transition) ease; }
+.receipts-list a:hover .rc-ext { transform: translate(2px, -2px); }
+
+/* Sign-off: surface card, faint drifting sprinkles, centred note, share button. */
+.signoff {
+  position: relative; overflow: hidden; isolation: isolate; margin-top: var(--space-4);
+  background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-card);
+}
+.signoff-sprinkles { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+.signoff-inner { display: grid; justify-items: center; gap: 6px; padding: var(--space-5) var(--space-4); text-align: center; }
+.signoff-line { font: italic 400 clamp(1.75rem, 1.4rem + 1vw, 2.25rem)/1.15 var(--font-serif); }
+.signoff-note { margin-top: var(--space-2); max-width: 40ch; font-size: var(--text-body); line-height: 1.55; }
+.signoff-actions { display: grid; justify-items: center; gap: var(--space-1); margin-top: var(--space-3); width: 100%; }
+.share-btn.is-done { background: var(--color-button-hover); }
+.share-fallback {
+  width: 100%; max-width: 28rem; min-height: 40px; padding: 0 12px;
+  border: 1px solid var(--color-border-strong); border-radius: 8px;
+  background: var(--color-surface); color: var(--color-text); font: 500 0.8125rem/1 var(--font-mono);
+}
+@media (max-width: 39.99rem) { .signoff-actions .share-btn { width: 100%; } }
+
+@media (prefers-reduced-motion: reduce) { .back-link .arrow, .rc-ext { transition: none; } }
