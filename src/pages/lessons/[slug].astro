@@ -21,7 +21,7 @@ const { title, deck, date, topics, takeaway, receipts, draft } = lesson.data;
 const path = `/lessons/${lesson.id}`;
 const host = (u: string) => new URL(u).hostname.replace(/^www\./, '');
 ---
-<BaseLayout title={`${title} · fika.pm`} description={deck} noindex={draft} current="lessons">
+<BaseLayout title={`${title} · fika.pm`} description={deck} noindex={draft} current="lessons" type="article" published={date}>
   <header class="lesson-hero">
     <a class="back-link" href="/lessons"><span class="arrow" aria-hidden="true">←</span> Back to Product Lessons</a>
     <hgroup>

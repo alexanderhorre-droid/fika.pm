@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import previewPages from './src/lib/preview-pages.mjs';
 
 // fika.pm — static site, deployed to Cloudflare Pages (build: `npm run build`, output: `dist`).
@@ -9,7 +10,11 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'never',
   build: { format: 'file' },
-  integrations: [previewPages()],
+  integrations: [
+    previewPages(),
+    // Sitemap of public pages only: no 404, no preview-only pages (About, /dev).
+    sitemap({ filter: (page) => !/\/(404|about|dev\/)/.test(new URL(page).pathname) }),
+  ],
   // The four fonts, fetched from Google Fonts at build time and served from the site itself.
   // Astro generates size-matched fallbacks, so text doesn't jump when the real fonts arrive.
   fonts: [

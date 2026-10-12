@@ -43,7 +43,7 @@ const formats = [
 
     <section class="about-format" aria-label="How each lesson works">
       <p><strong>At the end</strong> of each Product Lesson, you’ll find The Take Away, the one thing to remember, and Show the Receipts, with the sources behind it.</p>
-      <ul class="takeaway-row">
+      <ul class="takeaway-row" aria-label="How each lesson works">
         {formats.map((f) => (
           <li class="takeaway"><p class="takeaway-num">{f.label}</p><h3>{f.title}</h3><p>{f.text}</p></li>
         ))}
@@ -78,6 +78,11 @@ const formats = [
 </BaseLayout>
 
 <script>
+  // Format cards: on phones they scroll sideways, so make the row reachable by keyboard when it does.
+  const row = document.querySelector<HTMLElement>('.takeaway-row');
+  const syncRow = () => { if (!row) return; if (row.scrollWidth > row.clientWidth + 1) row.tabIndex = 0; else row.removeAttribute('tabindex'); };
+  syncRow(); addEventListener('resize', syncRow);
+
   // Timeline: first three roles, then the line fades; "Show N more roles" expands, "Show fewer roles" collapses.
   // Collapsing happens with JavaScript only, so without it every role shows.
   const list = document.getElementById('timeline');

@@ -11,13 +11,15 @@ interface Props {
   description?: string;
   noindex?: boolean;
   current?: NavPage;
+  type?: 'website' | 'article';
+  published?: Date;
 }
-const { title, description, noindex, current } = Astro.props;
+const { title, description, noindex, current, type, published } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} noindex={noindex} />
+    <BaseHead title={title} description={description} noindex={noindex} type={type} published={published} />
     <slot name="head" />
   </head>
   <body>

@@ -29,7 +29,7 @@ const topics = getTopics(lessons);
       <div class="filter-pop">
         <div class="filter-box">
           <button type="button" class="filter-toggle" aria-expanded="false" aria-controls="filter-panel">
-            <span class="filter-toggle-main"><span>Filter by topic</span><span class="filter-badge" hidden></span></span>
+            <span class="filter-toggle-main"><span>Filter by topic</span><span class="filter-badge" hidden></span><span class="visually-hidden filter-badge-sr"></span></span>
             <span class="filter-close-text" aria-hidden="true">Close</span>
           </button>
           <div class="filter-panel" id="filter-panel" hidden>
@@ -99,7 +99,8 @@ const topics = getTopics(lessons);
     empty.textContent = `No lessons on ${joinOr(names)} yet.`;
 
     const n = chips.filter((c) => selected.includes(c.dataset.tag!)).length;
-    badge.hidden = !n; badge.textContent = String(n); badge.setAttribute('aria-label', `${n} selected`);
+    badge.hidden = !n; badge.textContent = String(n); badge.setAttribute('aria-hidden', 'true');
+    box.querySelector('.filter-badge-sr')!.textContent = n ? `, ${n} selected` : '';
     sizeClosed();
 
     if (announce) live.textContent = names.length ? `Showing lessons on ${names.join(', ')}` : 'Showing all lessons';
@@ -114,7 +115,6 @@ const topics = getTopics(lessons);
     box.classList.toggle('is-open', open);
     panel.hidden = !open;
     toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Close topic filter' : 'Filter by topic');
     if (!open) { sizeClosed(); if (focusBack) toggle.focus(); }
   }
   toggle.addEventListener('click', () => setOpen(!box.classList.contains('is-open')));

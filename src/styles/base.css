@@ -151,3 +151,14 @@ button { font: inherit; color: inherit; }
   font: 500 0.625rem/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; opacity: .75;
 }
 
+
+/* ---------- Tap targets (S13): at least 44px tall to a finger, without changing how anything looks ---------- */
+/* Controls drawn smaller than 44px get an invisible hit area that extends past their edges. */
+.btn-solid, .topic-tag, .filter-toggle { position: relative; }
+.btn-solid::after, .topic-tag::after, .filter-toggle::after {
+  content: ""; position: absolute; left: 0; right: 0;
+  top: min(0px, calc((100% - 44px) / 2)); bottom: min(0px, calc((100% - 44px) / 2));
+}
+/* Inline text links (list titles, footer heading): vertical padding widens the hit area, not the layout. */
+.post h3 a, .footer-home { padding-block: 6px; }
+.skip-link { padding-block: 12px; }
