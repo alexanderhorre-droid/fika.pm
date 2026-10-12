@@ -1,0 +1,17 @@
+---
+// Highlighter: at most one per section. Decorative only — never on links or controls.
+---
+<span class="highlight"><slot /></span>
+
+<script>
+  // Draw each highlighter once, when 60% of it is on screen. Without IntersectionObserver, draw immediately.
+  const marks = document.querySelectorAll<HTMLElement>('.highlight:not(.in-view)');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+    }), { threshold: 0.6 });
+    marks.forEach((m) => io.observe(m));
+  } else {
+    marks.forEach((m) => m.classList.add('in-view'));
+  }
+</script>

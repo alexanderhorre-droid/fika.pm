@@ -19,6 +19,8 @@
   --color-takeaway-muted: #c4c8cd;
   --color-receipts: #fbf8f3;        /* Show the Receipts card */
   --color-receipts-border: #dcd5c9;
+  --color-chip: #ffffff;            /* filter chip fill */
+  --color-band: #fbf8f3;            /* filter panel band */
   --portrait-fill: #f5efe6;
   --logo-ring: #000000;
   --logo-sprinkles: #ffffff;
@@ -90,6 +92,7 @@
     --color-nav-border: #2e3238;
     --color-takeaway: #f5efe6; --color-takeaway-fg: #1b1e22; --color-takeaway-muted: #43494f;
     --color-receipts: #202327; --color-receipts-border: #2e3238;
+    --color-chip: #15171a; --color-band: #1e2125;
     --logo-ring: #f2f3f4; --logo-sprinkles: #15171a;
     --highlight: rgba(184, 144, 28, 0.55);
     --sprinkle-rose: #f0b3c0; --sprinkle-butter: #f4da8a; --sprinkle-mint: #9ddbbb; --sprinkle-lilac: #bfb3ee; --sprinkle-sky: #9ccaee;
@@ -105,6 +108,7 @@
   --color-nav-border: #2e3238;
   --color-takeaway: #f5efe6; --color-takeaway-fg: #1b1e22; --color-takeaway-muted: #43494f;
   --color-receipts: #202327; --color-receipts-border: #2e3238;
+  --color-chip: #15171a; --color-band: #1e2125;
   --logo-ring: #f2f3f4; --logo-sprinkles: #15171a;
   --highlight: rgba(184, 144, 28, 0.55);
   --sprinkle-rose: #f0b3c0; --sprinkle-butter: #f4da8a; --sprinkle-mint: #9ddbbb; --sprinkle-lilac: #bfb3ee; --sprinkle-sky: #9ccaee;

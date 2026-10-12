@@ -1,0 +1,20 @@
+---
+// Pills are labels or toggles, never buttons.
+//   kind="topic": topic tag, a link to Product Lessons filtered by that topic
+//   kind="chip":  filter chip, a toggle (aria-pressed); selected chips invert and show ✓
+//   kind="soon":  Coming soon tag after a disabled item
+interface Props {
+  kind: 'topic' | 'chip' | 'soon';
+  topic?: string;      // topic id, e.g. "roadmap" (topic, chip)
+  pressed?: boolean;   // chip only
+  size?: 'md' | 'lg';  // topic only; lg is the About page size
+}
+const { kind, topic, pressed = false, size = 'md' } = Astro.props;
+---
+{kind === 'topic' && (
+  <a class:list={['topic-tag', { 'topic-tag--lg': size === 'lg' }]} href={`/lessons?topic=${topic}`}><slot /></a>
+)}
+{kind === 'chip' && (
+  <button type="button" class="chip" data-tag={topic} aria-pressed={String(pressed)}><slot /></button>
+)}
+{kind === 'soon' && <span class="soon-tag"><slot>Coming soon</slot></span>}

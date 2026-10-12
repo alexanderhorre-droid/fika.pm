@@ -1,0 +1,16 @@
+---
+// Section heading: bold serif h2, highlighted by default; optional action (slot="action") on the right.
+import Highlight from './Highlight.astro';
+interface Props { id?: string; highlight?: boolean }
+const { id, highlight = true } = Astro.props;
+const hasAction = Astro.slots.has('action');
+const heading = highlight ? 'hl' : 'plain';
+---
+{hasAction ? (
+  <div class="section-head">
+    <h2 class="section-title" id={id}>{heading === 'hl' ? <Highlight><slot /></Highlight> : <slot />}</h2>
+    <slot name="action" />
+  </div>
+) : (
+  <h2 class="section-title" id={id}>{heading === 'hl' ? <Highlight><slot /></Highlight> : <slot />}</h2>
+)}

@@ -1,0 +1,13 @@
+---
+// Solid button. Buttons do things; links go places.
+// With href it renders a link styled as a button (the main way forward from a section) — still an <a>.
+import type { HTMLAttributes } from 'astro/types';
+type Props = (HTMLAttributes<'button'> | HTMLAttributes<'a'>) & { href?: string; arrow?: boolean };
+const { href, arrow = false, class: cls, ...rest } = Astro.props as Props & { class?: string };
+const classes = ['btn-solid', cls].filter(Boolean).join(' ');
+---
+{href ? (
+  <a href={href} class={classes} {...(rest as HTMLAttributes<'a'>)}><slot />{arrow && <span class="arrow" aria-hidden="true">→</span>}</a>
+) : (
+  <button type="button" class={classes} {...(rest as HTMLAttributes<'button'>)}><slot />{arrow && <span class="arrow" aria-hidden="true">→</span>}</button>
+)}

@@ -1,0 +1,87 @@
+---
+// S06 gate page: kitchen sink of the small parts in both themes. Not linked; noindex.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import Pill from '../../components/Pill.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Highlight from '../../components/Highlight.astro';
+
+const topics = [
+  ['roadmap', 'Roadmap'], ['framework', 'Framework'], ['retention', 'Retention'],
+  ['onboarding', 'Onboarding'], ['payments', 'Payments'], ['claude', 'Claude'],
+];
+---
+<BaseLayout title="Small parts · fika.pm" noindex>
+  <div class="sink">
+    <header class="reading">
+      <p class="label text-muted">S06 · small parts</p>
+      <h1>Kitchen sink</h1>
+      <p class="text-muted">Every small part in one place. Flip dark mode in the nav to check both themes.</p>
+    </header>
+
+    <section>
+      <SectionHeading id="s-buttons">Solid button</SectionHeading>
+      <div class="row">
+        <Button>Copy link to this lesson</Button>
+        <Button href="/" arrow>View all lessons</Button>
+      </div>
+      <p class="note">Left: a <code>&lt;button&gt;</code> (it does something). Right: a link styled as a button (it goes somewhere), with the arrow nudging on hover. Press scales to 0.96.</p>
+    </section>
+
+    <section>
+      <SectionHeading id="s-recent">
+        Recent lessons
+        <Button slot="action" href="/" arrow>View all lessons</Button>
+      </SectionHeading>
+      <p class="note">Section heading with the highlighter and an action on the right. Scroll this into view to see the highlighter draw in once.</p>
+      <SectionHeading id="s-plain" highlight={false}>Without the highlighter</SectionHeading>
+    </section>
+
+    <section>
+      <SectionHeading id="s-pills">Pills</SectionHeading>
+      <h3>Topic tags (links)</h3>
+      <ul class="topic-list">
+        {topics.slice(0, 3).map(([id, label]) => <li><Pill kind="topic" topic={id}>{label}</Pill></li>)}
+      </ul>
+      <ul class="topic-list">
+        {topics.slice(0, 3).map(([id, label]) => <li><Pill kind="topic" topic={id} size="lg">{label}</Pill></li>)}
+      </ul>
+      <p class="note">Small on lessons, large on the About page. They link to Product Lessons filtered by topic (built in S10).</p>
+
+      <h3>Filter chips (toggles)</h3>
+      <div class="row chips">
+        <Pill kind="chip" pressed>All</Pill>
+        {topics.map(([id, label], i) => <Pill kind="chip" topic={id} pressed={i === 0}>{label}</Pill>)}
+      </div>
+      <p class="note">Click to toggle. Selected chips invert and show ✓.</p>
+
+      <h3>Coming soon tag</h3>
+      <p><span class="nav-soon" aria-disabled="true">About me <Pill kind="soon" /></span></p>
+    </section>
+
+    <section>
+      <SectionHeading id="s-hl" highlight={false}>Highlighter in running text</SectionHeading>
+      <p class="standfirst-demo"><Highlight><span class="brand-inline">fika.pm</span></Highlight> is a growing collection of bite‑sized product lessons.</p>
+      <p class="signoff-demo"><Highlight>Until the next fika…</Highlight></p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .sink { display: grid; gap: var(--space-6); padding-top: var(--space-5); }
+  section { display: grid; gap: var(--space-3); justify-items: start; padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+  section :global(.section-head) { justify-self: stretch; }
+  h1 { font-size: clamp(2.25rem, 1.5rem + 3vw, 3.5rem); line-height: 1.05; }
+  h3 { font: 600 var(--text-label)/1.4 var(--font-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--color-text-muted); margin-top: var(--space-2); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+  .chips { gap: var(--space-1); }
+  .note { color: var(--color-text-muted); font-size: var(--text-small); max-width: var(--post-w); }
+  .standfirst-demo { font: 400 clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem)/1.25 var(--font-serif); max-width: var(--post-w); }
+  .standfirst-demo :global(.brand-inline) { font-size: 0.71em; letter-spacing: 0.02em; }
+  .signoff-demo { font: italic 400 clamp(2rem, 1.6rem + 1.4vw, 2.75rem)/1.05 var(--font-serif); }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.chips .chip').forEach((c) =>
+    c.addEventListener('click', () => c.setAttribute('aria-pressed', String(c.getAttribute('aria-pressed') !== 'true'))));
+</script>
