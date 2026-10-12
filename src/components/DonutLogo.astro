@@ -1,0 +1,13 @@
+---
+// The fika.pm donut. Colours come from --logo-ring / --logo-sprinkles so it flips with the theme.
+const sprinkles: [number, number, number][] = [
+  [80, 50, 70], [84.4, 66.1, 20], [66.7, 69.9, -40], [59.3, 84.8, 80], [43, 76.1, 30], [26.2, 78.3, -60], [26.4, 61, 10],
+  [14, 50, -20], [25.5, 38.6, 60], [26.2, 21.7, 0], [43, 23.9, -70], [56.4, 13.6, 40], [65.5, 27.9, -15], [81.2, 32, 75],
+];
+---
+<svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+  <path fill="var(--logo-ring)" fill-rule="evenodd" d="M4 50a46 46 0 1 0 92 0a46 46 0 1 0 -92 0z M34 50a16 16 0 1 0 32 0a16 16 0 1 0 -32 0z" />
+  <g stroke="var(--logo-sprinkles)" stroke-width="3.2" stroke-linecap="round">
+    {sprinkles.map(([x, y, r]) => <line x1="-3.5" y1="0" x2="3.5" y2="0" transform={`translate(${x} ${y}) rotate(${r})`} />)}
+  </g>
+</svg>

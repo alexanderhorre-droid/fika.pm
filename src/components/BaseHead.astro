@@ -37,6 +37,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 
 <!-- Dark mode follows the device; a saved choice from the nav switch overrides it. Runs before paint. -->
 <script is:inline>
+  document.documentElement.classList.add('js');
   try {
     var t = localStorage.getItem('fika-theme');
     if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);

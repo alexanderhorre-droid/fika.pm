@@ -1,13 +1,8 @@
 ---
-// S03 gate page: the empty shell with stand-in header and footer, showing the content edge. Not linked; noindex.
+// S03 gate page: the empty shell with the nav bar and a stand-in footer, showing the content edge. Not linked; noindex.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="Layout shell · fika.pm" noindex>
-  <header slot="header" class="wide stand-in stand-in--header">
-    <span class="label">Header slot · nav bar arrives in S04</span>
-    <span class="bp label" aria-live="polite"></span>
-  </header>
-
   <section class="block">
     <p class="label text-muted">S03 · layout shell</p>
     <h1>One content edge</h1>
@@ -31,7 +26,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 <style>
   .stand-in { display: flex; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap; padding: var(--space-3) 0; outline: 1px dashed var(--color-text-muted); outline-offset: -1px; padding-inline: var(--space-2); }
-  .stand-in--header { margin-top: var(--nav-top); min-height: var(--header-h); align-items: center; }
   .stand-in--footer { margin-bottom: var(--space-5); }
   .block { padding: var(--space-4) 0; border-top: 1px solid var(--color-border); display: grid; gap: var(--space-2); }
   .block:first-child { border-top: 0; }
@@ -40,6 +34,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   @media (max-width: 63.99rem) { h1 { font-size: var(--hero-size-sm); } }
   h2 { font-size: var(--text-h2); }
   .reading { background: color-mix(in srgb, var(--color-border) 45%, transparent); }
+  .bp { display: none; }
   .bp::before { content: "Phone · under 40rem"; }
   @media (min-width: 40rem) { .bp::before { content: "Tablet · 40–64rem"; } }
   @media (min-width: 64rem) { .bp::before { content: "Desktop · 64rem and up"; } }

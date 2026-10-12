@@ -1,0 +1,24 @@
+---
+// S04 gate page: nav bar over scrolling content. Not linked; noindex.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const paras = Array.from({ length: 10 }, (_, i) => i + 1);
+---
+<BaseLayout title="Nav bar · fika.pm" noindex current="home">
+  <div class="reading stack">
+    <p class="label text-muted">S04 · nav bar</p>
+    <h1>Nav bar walk-through</h1>
+    <p>Try it with the keyboard only. <kbd>Tab</kbd> from the top: Skip to content, the logo, Home, Product Lessons, then the dark mode switch (desktop) or Menu (phone and tablet). The two Coming soon items are not links, so Tab skips them.</p>
+    <p>On a narrow window: open Menu with <kbd>Enter</kbd>, Tab through the panel to Dark mode, then press <kbd>Esc</kbd>. The panel closes and focus returns to Menu. Tapping outside the panel or choosing a link also closes it.</p>
+    <p>The dark mode switch overrides your device setting and is remembered after a reload. Scroll down: the logo and pill stay 24px from the top with a soft shadow.</p>
+    <p class="text-muted text-small">Product Lessons links to /lessons, which is built in S10.</p>
+    {paras.map((n) => (
+      <p>Filler paragraph {n} so the page scrolls under the floating nav. Every roadmap I’ve shipped started as a confident slide and ended as a list of apologies. Not because the team was slow, but because the roadmap pretended to know things nobody knew yet.</p>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .stack { display: grid; gap: var(--space-3); padding-top: var(--space-5); }
+  h1 { font-size: var(--text-h2); font-size: clamp(2.25rem, 1.5rem + 3vw, 3.5rem); line-height: 1.05; }
+  kbd { font: 500 0.875em var(--font-mono); padding: 1px 6px; border: 1px solid var(--color-border-strong); border-radius: var(--radius-sm); }
+</style>

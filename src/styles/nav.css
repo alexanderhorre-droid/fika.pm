@@ -1,0 +1,138 @@
+/* ---------- Nav bar (S04): donut logo + floating Graphite pill ---------- */
+:root {
+  --radius-nav-open: calc(var(--header-h) / 2 + 1px);
+  --nav-btn-h: calc(var(--btn-h) - 4px);
+  --nav-end-pad: calc((var(--header-h) - var(--nav-btn-h)) / 2 + 6px);
+}
+
+.topbar {
+  position: sticky; top: var(--nav-top); z-index: var(--z-header);
+  width: min(100% - 2 * var(--gutter), var(--wide));
+  margin: var(--nav-top) auto 0;
+  display: grid; grid-template-columns: auto 1fr; align-items: start; gap: var(--space-1);
+  height: calc(var(--header-h) + 2px); /* fixed: the open menu overlays the page instead of pushing it down */
+  pointer-events: none;
+}
+.topbar > * { pointer-events: auto; }
+
+/* Logo: spins every 20.5s; the shadow follows the donut's shape and stays still while it turns. */
+.brand-logo {
+  display: block; flex: none;
+  width: calc(var(--header-h) + 2px); height: calc(var(--header-h) + 2px);
+  border-radius: 50%;
+  filter: var(--logo-shadow);
+}
+.brand-logo svg { display: block; width: 100%; height: 100%; transform-origin: 50% 50%; animation: logoSpin var(--spin-duration) linear infinite; }
+@keyframes logoSpin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .brand-logo svg { animation: none !important; transform: none !important; } }
+
+.site-header {
+  position: relative; justify-self: end;
+  width: fit-content; max-width: 100%;
+  background: var(--color-nav-bg); color: var(--color-nav-fg);
+  border: 1px solid var(--color-nav-border);
+  border-radius: var(--radius-nav);
+  box-shadow: var(--nav-shadow);
+}
+.site-header.is-open { border-radius: var(--radius-nav-open); }
+.site-header :focus-visible { outline-color: var(--color-nav-fg); }
+
+.bar { display: grid; grid-template-columns: auto; grid-template-areas: "menu" "nav"; align-items: center; }
+.actions { grid-area: actions; display: flex; align-items: center; min-height: var(--header-h); }
+.actions .theme-switch { margin-right: var(--space-1); }
+
+.menu-btn {
+  grid-area: menu; justify-self: end; margin: calc((var(--header-h) - 2.75rem) / 2) var(--nav-end-pad);
+  display: none; min-height: 2.75rem; padding: 0 0.875rem;
+  background: transparent; color: var(--color-nav-fg); border: 0; border-radius: var(--radius-pill);
+  font: 400 var(--nav-font)/1 var(--font-sans); cursor: pointer; white-space: nowrap;
+  text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px;
+}
+.menu-btn:hover { text-decoration-color: currentColor; }
+.js .menu-btn { display: inline-flex; align-items: center; }
+
+.site-nav { grid-area: nav; }
+.site-nav ul { list-style: none; margin: 0; padding: 0 0 var(--space-1); border-top: 1px solid var(--color-nav-divider); }
+.site-nav li + li { border-top: 1px solid var(--color-nav-divider); }
+.site-nav a {
+  display: flex; align-items: center; min-height: 3rem; padding: 0 var(--nav-pad-x);
+  font-size: var(--nav-font); text-decoration: none;
+}
+.site-nav a:hover, .site-nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 1px; }
+.site-nav a:hover { text-decoration-thickness: 2px; }
+
+.js .site-nav { display: none; }
+.js .site-header.is-open .site-nav { display: block; animation: navIn 150ms ease-out; }
+@keyframes navIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+/* "Coming soon": not a link, muted, with a mono tag. */
+.nav-soon { display: inline-flex; align-items: center; gap: 8px; cursor: default; opacity: .85; white-space: nowrap; }
+.site-nav .nav-soon { padding: 0 var(--nav-pad-x); min-height: 3rem; font-size: var(--nav-font); }
+.soon-tag {
+  display: inline-flex; align-items: center; height: 20px; padding: 0 7px;
+  border: 1px solid currentColor; border-radius: var(--radius-pill);
+  font: 500 0.625rem/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; opacity: .75;
+}
+
+/* Theme switch: sun/moon, role="switch" */
+.theme-switch {
+  position: relative; flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 64px; height: 44px; padding: 0; margin: 0; border: 0; background: transparent; color: var(--color-nav-fg);
+  cursor: pointer; border-radius: var(--radius-pill); -webkit-tap-highlight-color: transparent;
+}
+.ts-track {
+  position: relative; display: flex; align-items: center; justify-content: space-between;
+  width: 56px; height: 30px; padding: 0 8px; border-radius: 999px;
+  background: var(--color-nav-divider); box-shadow: inset 0 0 0 1px #3a3f46;
+}
+.ts-track svg { width: 13px; height: 13px; opacity: 0.55; }
+.ts-knob {
+  position: absolute; top: 50%; left: calc(50% - 28px + 3px); width: 24px; height: 24px; margin-top: -12px;
+  display: grid; place-items: center; border-radius: 50%;
+  background: var(--color-nav-fg); color: var(--color-nav-bg);
+  transition: transform 200ms ease;
+}
+.ts-knob svg { grid-area: 1 / 1; width: 14px; height: 14px; transition: opacity 200ms ease; }
+.ts-knob .ts-moon { opacity: 0; }
+[aria-checked="true"] .ts-knob { transform: translateX(26px); }
+[aria-checked="true"] .ts-knob .ts-sun { opacity: 0; }
+[aria-checked="true"] .ts-knob .ts-moon { opacity: 1; }
+.theme-switch:hover .ts-track, .theme-row:hover .ts-track { box-shadow: inset 0 0 0 1px var(--color-nav-fg); }
+.theme-switch:focus-visible { outline: 2px solid var(--color-nav-fg); outline-offset: 0; }
+[data-theme-switch]:not(.ready) .ts-knob, [data-theme-switch]:not(.ready) .ts-knob svg { transition: none; }
+
+/* Phones and tablets: the switch is the last row of the open menu. */
+.menu-theme { display: none; }
+.theme-row {
+  display: flex; align-items: center; justify-content: space-between; width: 100%;
+  min-height: 3rem; padding: 0 calc(var(--nav-pad-x) - 10px) 0 var(--nav-pad-x);
+  border: 0; background: transparent; color: var(--color-nav-fg);
+  font: 400 var(--nav-font)/1 var(--font-sans); text-align: left; cursor: pointer;
+}
+.theme-row .theme-switch { width: auto; height: auto; pointer-events: none; }
+.theme-row:hover .theme-row-label { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.theme-row:focus-visible { outline: 2px solid var(--color-nav-fg); outline-offset: -2px; }
+
+@media (max-width: 63.99rem) {
+  .actions { display: none; }
+  .js .menu-theme { display: block; }
+}
+/* Without JavaScript: no menu button or switch; the links show and the theme follows the device. */
+html:not(.js) .actions { display: none; }
+
+@media (min-width: 64rem) {
+  .bar { grid-template-columns: auto auto; grid-template-areas: "nav actions"; column-gap: var(--nav-group-gap); }
+  .menu-btn { display: none !important; }
+  .site-nav { padding-left: var(--nav-pad-x); }
+  .js .site-nav, .site-nav { display: block; }
+  .site-nav ul { display: flex; gap: var(--nav-link-gap); padding: 0; border-top: 0; }
+  .site-nav li + li { border-top: 0; }
+  .site-nav a { min-height: 2.75rem; padding: 0; white-space: nowrap; }
+  .site-nav .nav-soon { padding: 0; min-height: 2.75rem; }
+  .actions { padding-right: var(--nav-pad-x); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .site-header.is-open .site-nav { animation: none; }
+  .ts-knob, .ts-knob svg { transition: none; }
+}

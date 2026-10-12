@@ -1,0 +1,83 @@
+---
+// S04 nav bar: spinning donut logo (home) + floating Graphite pill.
+// Desktop: Home · Product Lessons · About me (soon) · Work (soon) · dark mode switch.
+// Below 64rem: Menu/Close panel with Dark mode as the last row.
+import '../styles/nav.css';
+import DonutLogo from './DonutLogo.astro';
+import ThemeSwitchTrack from './ThemeSwitchTrack.astro';
+
+import type { NavPage } from '../types';
+interface Props { current?: NavPage }
+const { current = 'none' } = Astro.props;
+
+const links = [
+  { id: 'home', label: 'Home', href: '/' },
+  { id: 'lessons', label: 'Product Lessons', href: '/lessons' },
+] as const;
+const soon = ['About me', 'Work'];
+---
+<div class="topbar">
+  <a class="brand-logo" href="/" aria-label="fika.pm home"><DonutLogo /></a>
+  <header class="site-header" id="site-header">
+    <div class="bar">
+      <!-- DOM order = focus order: Menu → panel (phones); links → switch (desktop). -->
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul>
+          {links.map((l) => (
+            <li><a href={l.href} aria-current={current === l.id ? 'page' : undefined}>{l.label}</a></li>
+          ))}
+          {soon.map((label) => (
+            <li><span class="nav-soon" aria-disabled="true">{label} <span class="soon-tag">Coming soon</span></span></li>
+          ))}
+          <li class="menu-theme">
+            <button class="theme-row" type="button" role="switch" data-theme-switch aria-checked="false">
+              <span class="theme-row-label">Dark mode</span>
+              <span class="theme-switch" aria-hidden="true"><ThemeSwitchTrack /></span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <div class="actions">
+        <button class="theme-switch" type="button" role="switch" data-theme-switch aria-checked="false" aria-label="Dark mode"><ThemeSwitchTrack /></button>
+      </div>
+    </div>
+  </header>
+</div>
+
+<script>
+  // Menu: opens downward; closes on Escape (focus back to Menu), an outside tap, a link, or growing to desktop.
+  const header = document.getElementById('site-header')!;
+  const btn = header.querySelector<HTMLButtonElement>('.menu-btn')!;
+  const nav = document.getElementById('site-nav')!;
+  const isOpen = () => header.classList.contains('is-open');
+  const setOpen = (open: boolean, returnFocus = false) => {
+    header.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.textContent = open ? 'Close' : 'Menu';
+    if (!open && returnFocus) btn.focus();
+  };
+  btn.addEventListener('click', () => setOpen(!isOpen()));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) setOpen(false, true); });
+  document.addEventListener('click', (e) => { if (isOpen() && !header.contains(e.target as Node)) setOpen(false); });
+  nav.addEventListener('click', (e) => { if ((e.target as Element).closest('a')) setOpen(false); });
+  matchMedia('(min-width: 64rem)').addEventListener('change', (m) => { if (m.matches) setOpen(false); });
+
+  // Theme switch: follows the device until the reader picks; the pick is remembered in localStorage.
+  const root = document.documentElement;
+  const switches = document.querySelectorAll<HTMLElement>('[data-theme-switch]');
+  const mq = matchMedia('(prefers-color-scheme: dark)');
+  const isDark = () => { const t = root.getAttribute('data-theme'); return t ? t === 'dark' : mq.matches; };
+  const sync = () => {
+    switches.forEach((s) => s.setAttribute('aria-checked', String(isDark())));
+    requestAnimationFrame(() => switches.forEach((s) => s.classList.add('ready')));
+  };
+  switches.forEach((s) => s.addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('fika-theme', next); } catch {}
+    sync();
+  }));
+  mq.addEventListener('change', sync);
+  sync();
+</script>

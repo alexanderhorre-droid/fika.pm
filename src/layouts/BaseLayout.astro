@@ -1,14 +1,17 @@
 ---
 // The shell every page shares: skip link, header slot, <main> on the one content edge, footer slot.
-// Header (S04) and footer (S05) fill the slots once built.
+// The nav bar is the default header; the footer slot is filled once S05 lands.
 import BaseHead from '../components/BaseHead.astro';
+import NavBar from '../components/NavBar.astro';
+import type { NavPage } from '../types';
 
 interface Props {
   title: string;
   description?: string;
   noindex?: boolean;
+  current?: NavPage;
 }
-const { title, description, noindex } = Astro.props;
+const { title, description, noindex, current } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -18,7 +21,7 @@ const { title, description, noindex } = Astro.props;
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <slot name="header" />
+    <slot name="header"><NavBar current={current} /></slot>
     <main id="main" class="site-main" tabindex="-1">
       <slot />
     </main>
