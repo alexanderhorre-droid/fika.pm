@@ -126,8 +126,9 @@ Secondary pages (Product Lessons, lesson, About, 404) hide the curved FIKA.PM la
 Pastel sprinkles drift slowly upward behind the top section of **every page**: the masthead on Home (and About), the header on Product Lessons, lessons and the 404 page.
 
 - 5.5px long, 3.5px thick, rounded; page colour set (see *Colours*).
-- **Density matches the home masthead:** 100 sprinkles in the home masthead; shorter headers get proportionally fewer (never below 35%).
-- **Clear of the text:** sprinkles go faint (20%) behind text. On Home and About that's the whole headline block; on pages with a full-width headline, only the actual text lines, so sprinkles still show beside short lines.
+- **Depth matches the home masthead:** on every page the sprinkles reach at least as low as the homepage's at the same width (about 45% of the width + 100px, up to 605px), even when the page's header is shorter (Product Lessons). Longer headers (404) go further.
+- **Density matches too:** 100 sprinkles in the home masthead; other depths get proportionally fewer or as many (never below 35%).
+- **Clear of the text:** sprinkles go faint (20%) behind any text they cross. On Home and About that's the whole headline block; elsewhere only the actual text lines (headline, deck, back link, meta, "All lessons", list items) and the filter button, so sprinkles still show beside short lines.
 - Never over the portrait: its silhouette is cut out of the sprinkle layer.
 - Paused when scrolled out of view or in a background tab; drawn once and still with reduced motion. They sit outside the layout, so they never shift anything.
 - The lesson sign-off card has its own faint sprinkles in the soft colour set.

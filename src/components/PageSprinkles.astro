@@ -1,6 +1,7 @@
 ---
 // Pastel sprinkles drifting up behind the top of every page.
-// The area is the page's first [data-sprinkles] element (home/About masthead, or the page header).
+// The area is the page's first [data-sprinkles] element (home/About masthead, or the page header),
+// and at least as deep as the home masthead at the same width, so every page's sprinkles reach as low.
 // Sprinkles go faint behind [data-sprinkles-clear] elements: the whole box, or with ="lines"
 // only the text lines (for full-width headlines). Cut out of the portrait, paused off-screen and in
 // background tabs, still (drawn once) with reduced motion. Absolutely positioned: never shifts layout.
@@ -43,7 +44,10 @@
     };
 
     const resize = () => {
-      const h = hero.getBoundingClientRect().bottom + scrollY;
+      // At least as deep as the home masthead at this width (measured: ~45% of the width + 100px, up to 605px),
+      // so every page's sprinkles reach as low as the homepage's.
+      const homeDepth = Math.min(605, Math.round(root.clientWidth * 0.45 + 100));
+      const h = Math.max(hero.getBoundingClientRect().bottom + scrollY, homeDepth);
       const w = root.clientWidth;
       if (Math.abs(w - W) < 1 && Math.abs(h - H) < 1) return;
       const first = !W, kx = W ? w / W : 1, ky = H ? h / H : 1;
@@ -56,7 +60,7 @@
     // Where the text is, in page coordinates, padded so sprinkles stay clear of it.
     function clearRects() {
       const out: { x0: number; y0: number; x1: number; y1: number }[] = [];
-      hero!.querySelectorAll<HTMLElement>('[data-sprinkles-clear]').forEach((el) => {
+      document.querySelectorAll<HTMLElement>('[data-sprinkles-clear]').forEach((el) => {
         const lines = el.dataset.sprinklesClear === 'lines';
         const pad = lines ? 12 : 24;
         let rects: DOMRect[];
