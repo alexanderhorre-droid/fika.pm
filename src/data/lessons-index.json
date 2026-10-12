@@ -1,0 +1,15 @@
+{
+  "note": "Placeholder lesson list from the prototype. Only why-roadmaps-lie has a body; the rest are titles to replace with real lessons.",
+  "topics": ["roadmap", "framework", "retention", "onboarding", "payments", "claude"],
+  "lessons": [
+    {"slug": "why-roadmaps-lie", "date": "2026-10-07", "title": "Why roadmaps lie", "topics": ["roadmap"]},
+    {"slug": "fika-as-a-product-ritual", "date": "2026-09-23", "title": "Fika as a product ritual: how a fifteen-minute coffee break quietly fixed our team’s planning cadence", "topics": ["framework"]},
+    {"slug": "activation-is-a-promise", "date": "2026-09-09", "title": "Activation is a promise, not a funnel step", "topics": ["retention", "onboarding"]},
+    {"slug": "write-the-press-release-last", "date": "2026-08-26", "title": "Write the press release last", "topics": ["framework", "roadmap", "claude"]},
+    {"slug": "one-metric-per-meeting", "date": "2026-08-12", "title": "One metric per meeting", "topics": ["framework", "retention", "claude"]},
+    {"slug": "gift-cards-in-twelve-markets", "date": "2026-07-29", "title": "Gift cards in twelve markets: what local rules taught me about building one product for many countries, and when to say no", "topics": ["payments"]},
+    {"slug": "say-no-with-a-date", "date": "2026-07-15", "title": "Say no with a date", "topics": ["roadmap"]},
+    {"slug": "the-first-five-minutes-of-onboarding", "date": "2026-07-01", "title": "The first five minutes of onboarding", "topics": ["onboarding", "retention"]},
+    {"slug": "offline-is-a-feature", "date": "2026-06-17", "title": "Offline is a feature", "topics": ["payments"]}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "note": "About page timeline, newest first. The first three show; the rest expand. Titles and dates from Alex's 2026 CVs; 'area' lines are short summaries to review.",
+  "roles": [
+    {"dates": "2023–2024", "title": "Technical Product Manager", "company": "Viva.com", "area": "In-person payments, onboarding and checkout"},
+    {"dates": "2021–2023", "title": "Senior Product Manager", "company": "Zettle by PayPal", "area": "Mobile checkout and receipts"},
+    {"dates": "2020–2021", "title": "Senior Product Manager · Growth Lead", "company": "Zettle by PayPal", "area": "Experimentation, product analytics and PM training"},
+    {"dates": "2019–2020", "title": "Senior Product Manager", "company": "iZettle", "area": "Gift cards and local payment methods"},
+    {"dates": "2017–2019", "title": "Growth Product Manager", "company": "iZettle", "area": "Signup, activation and retention"},
+    {"dates": "2014–2017", "title": "Growth Product Manager", "company": "Mynewsdesk", "area": "Publishing, analytics and growth experiments"},
+    {"dates": "2011–2012", "title": "Head of Product", "company": "Happiest", "area": "Location-based consumer app, co-founded"},
+    {"dates": "2010–2014", "title": "Lead Product Manager", "company": "Clicksco", "area": "Travel booking and client products"}
+  ]
+}
