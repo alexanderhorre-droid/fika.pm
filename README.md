@@ -34,6 +34,10 @@ Node 22+ (`.node-version`).
 4. Production branch `main`; every other branch gets a preview URL.
 5. Later (S13): Custom domains → `fika.pm`.
 
+## Writing a lesson
+
+Start from `docs/lesson-template.md`; the full guide (fields, body rules, copy rules, publishing) is the **fika.pm lesson guide** doc in Claude and `docs/lesson-guide.md` here.
+
 ## Content plan
 
 `why-roadmaps-lie.md` is the sample lesson from the mockup and stays live until the first real lesson.
