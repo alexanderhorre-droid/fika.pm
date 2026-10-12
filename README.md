@@ -34,6 +34,12 @@ Node 22+ (`.node-version`).
 4. Production branch `main`; every other branch gets a preview URL.
 5. Later (S13): Custom domains → `fika.pm`.
 
+## Content plan
+
+`why-roadmaps-lie.md` is the sample lesson from the mockup and stays live until the first real lesson.
+When the first real lesson is written: delete **all nine** files in `src/content/lessons/` (the sample and the
+eight placeholder drafts) and publish the real one as the only lesson.
+
 ## Progress
 
 - [x] S01 · setup · astro-project (Lighthouse 100/100/100/100 on the placeholder)
