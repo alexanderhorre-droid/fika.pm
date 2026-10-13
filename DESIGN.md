@@ -4,6 +4,7 @@
 
 ### What changed while building (12 Oct 2026)
 
+- **No portrait on Home** (13 Oct). The headline takes the full width; the portrait stays on About only.
 - **Topics come from the lessons.** No fixed topic list: tags and filter chips are whatever published lessons list under `topics:`.
 - **Sprinkles on every page**, behind the top section, at the home masthead's density; brighter colour set for the page sprinkles.
 - **Home headline always two lines** on every screen; its size follows its column.
@@ -109,7 +110,7 @@ Text glyphs, no icon font, and never emoji (the four fonts carry no arrows, so a
 | About me | `/about` | About me · Coming soon | Preview links only; to be redone |
 | Work (full CV) | — | Work · Coming soon | Not built |
 
-Secondary pages (Product Lessons, lesson, About, 404) hide the curved FIKA.PM label. Product Lessons, lessons and 404 also hide the portrait; About keeps it.
+Secondary pages (Product Lessons, lesson, About, 404) hide the curved FIKA.PM label. Only About shows the portrait; Home, Product Lessons, lessons and 404 have none (removed from Home on 13 Oct 2026).
 
 ## Header & navigation
 
@@ -128,14 +129,14 @@ Pastel sprinkles drift slowly upward behind the top section of **every page**: t
 - 5.5px long, 3.5px thick, rounded; page colour set (see *Colours*).
 - **Depth matches the home masthead:** on every page the sprinkles reach at least as low as the homepage's at the same width (about 45% of the width + 100px, up to 605px), even when the page's header is shorter (Product Lessons). Longer headers (404) go further.
 - **Density matches too:** 100 sprinkles in the home masthead; other depths get proportionally fewer or as many (never below 35%).
-- **Clear of the text:** sprinkles go faint (20%) behind any text they cross. On Home and About that's the whole headline block; elsewhere only the actual text lines (headline, deck, back link, meta, "All lessons", list items) and the filter button, so sprinkles still show beside short lines.
-- Never over the portrait: its silhouette is cut out of the sprinkle layer.
+- **Clear of the text:** sprinkles go faint (20%) behind any text they cross. On About that's the whole headline block; elsewhere, Home included, only the actual text lines (headline, FIKA.PM arc, deck, back link, meta, "All lessons", list items) and the filter button, so sprinkles still show beside short lines.
+- Never over the portrait (About): its silhouette is cut out of the sprinkle layer.
 - Paused when scrolled out of view or in a background tab; drawn once and still with reduced motion. They sit outside the layout, so they never shift anything.
 - The lesson sign-off card has its own faint sprinkles in the soft colour set.
 
 ## Home
 
-1. **Masthead:** curved FIKA.PM (Bungee on an arc) · h1 **"Bite‑sized product / lessons for PMs"** (bold, always two lines) · hedcut portrait. Sprinkles drift behind; text and portrait stay clear of them. Never stacks. 32px (`--hero-bottom`) to the next section.
+1. **Masthead:** curved FIKA.PM (Bungee on an arc) · h1 **"Bite‑sized product / lessons for PMs"** (bold, always two lines), full content width, no portrait. The headline fills the width on phones and stops at 99px on wider screens, leaving open space on the right for the sprinkles. Sprinkles drift behind and go faint behind the text lines. 32px (`--hero-bottom`) to the next section.
 2. **Standfirst:** full content width, hairline above. "**FIKA.PM** is a growing collection of bite‑sized product lessons. Drawn from years of leading empowered product teams, they cover craft, frameworks, first principles and industry insight." Opening fika.pm in Bungee at 0.71em with the highlighter.
 3. **Recent lessons:** highlighted section title, the three newest lessons (date label + serif title), then **"View all lessons →"** (link styled as a solid button).
 
