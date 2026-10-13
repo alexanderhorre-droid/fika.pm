@@ -4,6 +4,7 @@
 
 ### What changed while building (12 Oct 2026)
 
+- **Cream paper background** (13 Oct): light-mode page `#faf6ee` (was Oat milk `#f5efe6`); Receipts card and filter band `#fffdf8`. Dark mode unchanged; the dark Take Away card keeps Oat milk.
 - **No portrait on Home** (13 Oct). The headline takes the full width; the portrait stays on About only.
 - **Topics come from the lessons.** No fixed topic list: tags and filter chips are whatever published lessons list under `topics:`.
 - **Sprinkles on every page**, behind the top section, at the home masthead's density; brighter colour set for the page sprinkles.
@@ -17,7 +18,7 @@
 
 ## Principles
 
-- **Monochrome UI.** Graphite on Oat milk. The only chromatic colours are decorative: the pastel sprinkles and the yellow highlighter. Neither is ever used for text, links or controls.
+- **Monochrome UI.** Graphite on Cream paper. The only chromatic colours are decorative: the pastel sprinkles and the yellow highlighter. Neither is ever used for text, links or controls.
 - **Buttons do things; links go places.** Solid buttons are for actions (copy, share, filter). Links navigate. One deliberate exception: a link may be *styled* as a solid button when it is the main way forward from a section ("View all lessons →", "View Work →"). It stays an `<a>`.
 - **Pills are labels or toggles, never buttons.** Topic tags, filter chips and "Coming soon" tags are pills. Topic tags and filter chips are sentence case ("Roadmap"), never uppercase, even beside the uppercase date label; only the Coming soon tag is uppercase.
 - **Bite-sized everywhere.** Short headings, short paragraphs, one idea per block.
@@ -36,7 +37,7 @@
 
 | Role | Name | Light | Dark | Token | Use |
 |---|---|---|---|---|---|
-| Background | Oat milk / Night | `#f5efe6` | `#15171a` | `--color-bg` | Page background |
+| Background | Cream paper / Night | `#faf6ee` | `#15171a` | `--color-bg` | Page background |
 | Text | Graphite / Fog | `#1b1e22` | `#f2f3f4` | `--color-text` | Headings, body |
 | Muted text | Pewter / Silver | `#555c64` | `#a7adb4` | `--color-text-muted` | Dates, captions, secondary lines |
 | Role line | Iron | `#43494f` | `#bdc2c8` | `--color-deck` | Author role line; timeline dates (the deck under an h1 is Graphite `--color-text`, like the standfirst) |
@@ -46,7 +47,7 @@
 | Button hover | — | `#3a3f46` | `#c9ced3` | `--color-button-hover` | Solid button hover fill |
 | Nav bar | Graphite | `#1b1e22` | `#1b1e22` + Shadow outline | `--color-nav-bg` / `--color-nav-fg` | Floating nav, filter panel |
 | Take Away card | Espresso / Oat milk | `#1b1e22` | `#f5efe6` | `--color-takeaway` (+ `-fg`, `-muted`) | Inverted card at the end of a lesson |
-| Receipts card | Paper | `#fbf8f3` | `#202327` | `--color-receipts` (+ `-border` `#dcd5c9` / `#2e3238`) | Show the Receipts card |
+| Receipts card | Paper | `#fffdf8` | `#202327` | `--color-receipts` (+ `-border` `#e3dccf` / `#2e3238`) | Show the Receipts card |
 | Filter chip | White / Night | `#ffffff` | `#15171a` | `--color-chip` | Chip fill (transparent inside the dark filter panel) |
 
 - **Highlighter:** yellow `#f5cf3f` at 75% (dark: mustard `#b8901c` at 55%). Decorative.

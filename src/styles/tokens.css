@@ -2,7 +2,7 @@
 
 :root {
   /* Colour (light) */
-  --color-bg: #f5efe6;              /* Oat milk */
+  --color-bg: #faf6ee;              /* Cream paper */
   --color-text: #1b1e22;            /* Graphite */
   --color-text-muted: #555c64;      /* Pewter */
   --color-deck: #43494f;            /* Iron: author role line, timeline dates (decks use --color-text) */
@@ -17,11 +17,11 @@
   --color-takeaway: #1b1e22;        /* The Take Away card (inverted) */
   --color-takeaway-fg: #f2f3f4;
   --color-takeaway-muted: #c4c8cd;
-  --color-receipts: #fbf8f3;        /* Show the Receipts card */
-  --color-receipts-border: #dcd5c9;
+  --color-receipts: #fffdf8;        /* Show the Receipts card */
+  --color-receipts-border: #e3dccf;
   --color-chip: #ffffff;            /* filter chip fill */
-  --color-band: #fbf8f3;            /* filter panel band */
-  --portrait-fill: #f5efe6;
+  --color-band: #fffdf8;            /* filter panel band */
+  --portrait-fill: #faf6ee;
   --logo-ring: #000000;
   --logo-sprinkles: #ffffff;
   --highlight: rgba(245, 207, 63, 0.75);   /* decorative only */
