@@ -14,8 +14,8 @@ const arcs = [
   { cls: 'arc-lg', fs: 36, y: 197.8, vb: '40.07 21.81 215.15 78', w: 215.15, h: 78 },
 ];
 ---
-<section class:list={['hero', cls]} aria-label="Introduction" data-sprinkles>
-  <div class="hero-copy" data-sprinkles-clear>
+<section class:list={['hero', !showPortrait && 'hero--solo', cls]} aria-label="Introduction" data-sprinkles>
+  <div class="hero-copy" data-sprinkles-clear={showPortrait ? '' : 'lines'}>
     {arc && (
       <div class="hero-arc" aria-hidden="true">
         {arcs.map((a) => (
